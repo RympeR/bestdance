@@ -1,0 +1,101 @@
+<?php
+require_once('wp-bootstrap-navwalker.php');
+register_nav_menus( array(
+  'primary' => __( 'Primary Menu', 'Menu' ),
+) );
+remove_filter( 'the_content', 'wpautop' );
+remove_filter( 'the_excerpt', 'wpautop' );
+
+
+
+
+//Define the key to store in the database
+define( 'CF7_COUNTER', 'cf7-counter' );
+ 
+//Create the shortcode which will set the value for the DTX field
+function cf7dtx_counter(){
+    $val = get_option( CF7_COUNTER, 0) + 1;  //Increment the current count
+    return $val;
+}
+add_shortcode('CF7_counter', 'cf7dtx_counter');
+ 
+//Action performed when the mail is actually sent by CF7
+function cf7dtx_increment_mail_counter(){
+    $val = get_option( CF7_COUNTER, 0) + 1; //Increment the current count
+    update_option(CF7_COUNTER, $val); //Update the settings with the new count
+}
+add_action('wpcf7_mail_sent', 'cf7dtx_increment_mail_counter');
+
+/**
+ * Enqueue scripts and styles.
+ */
+function bestdancefest_theme_scripts() {
+	wp_enqueue_script( 'jquery-js', get_template_directory_uri() . '/libs/JQ_1-9-1/jquery.min.js');
+	wp_enqueue_script( 'bootstrap-js', get_template_directory_uri() . '/libs/bootstrap/js/bootstrap.min.js');
+	wp_enqueue_script( 'pageScroll2id-js', get_template_directory_uri() . '/libs/PageScroll2id/PageScroll2id.min.js');
+	wp_enqueue_script( 'site-functions', get_template_directory_uri() . '/js/common.js');
+	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+		wp_enqueue_script( 'comment-reply' );
+	}
+}
+add_action( 'wp_enqueue_scripts', 'bestdancefest_theme_scripts' );
+
+add_filter('manage_edit-wpcf7s_columns', 'my_columns', 4);
+function my_columns($columns) {
+	$num = 2;
+   $new_columns = array(
+		'post_id' => 'Post ID',
+	);
+
+	return array_slice( $columns, 0, $num ) + $new_columns + array_slice( $columns, $num );
+}
+// заполняем колонку данными
+add_action( 'manage_wpcf7s_posts_custom_column', 'my_manage_wpcf7s_columns', 10, 2 );
+
+function my_manage_wpcf7s_columns( $colname, $post_id ){
+	if( $colname === 'post_id' ){ 
+		echo $post_id; 
+	}
+}
+
+
+function custom_shortcode() {
+	 $user_id = get_current_user_id();
+	 return $user_id;
+}
+add_shortcode( 'get-login', 'custom_shortcode' );
+
+	
+function generate_links(){
+	$user_id = get_current_user_id();
+	$user_info = get_userdata(get_current_user_id());
+
+	$servername = "bestda01.mysql.tools";
+	$username = "bestda01_db";
+	$password = "LuyjNXUD";
+	$dbname = "bestda01_db";
+	
+	$conn = new mysqli($servername, $username, $password, $dbname);
+	if ($conn->connect_error){
+		die("Connection error: ");
+	}
+	$sql = "SELECT id,user_id FROM DATA_INPUT
+				WHERE user_id =  $user_id";
+
+	$result = $conn->query($sql);
+	
+	echo '<div id="lk-content" class="rcl-content"><div id="tab-zakazy_25" class="zakazy_25_block recall_content_block active"><div id="subtab-subtab-1" class="rcl-subtab-content">';
+	while($row = $result->fetch_assoc()) {
+
+		//echo "num form:".$row["id"]."<br>";
+		echo "<a style='color:#000;' href='http://www.bestdancefest.com.ua/form?num_form=".$row["id"]."'/>Заявка ".$row["id"].'</a>';
+		echo "<br>";
+	}
+	echo "</div></div></div>";
+	//echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+
+}
+add_shortcode('gen_links','generate_links');
+
+?>
+

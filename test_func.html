@@ -1,0 +1,169 @@
+	[paste_data]
+	<div style="text-align: center;">
+		<div id="response"></div>
+		<form onsubmit="return false" method="POST" name="client_form" id="form" enctype="multipart/form-data">
+			<input id="1"  name = "id_user" type="hidden" value= [get-login]>
+			<p><strong>Номинация:</strong><br>
+				<div style="color:#000">
+				<select id="nomination_selectA" required name="nomination">
+				  	<option disabled selected>Выберите номинацию</option>
+				    <option value="Street Show">Street Show</option>
+				    <option value="Show Girls">Show Girls</option>
+				    <option value="Современная хореография">Современная хореография</option>
+				    <option value="Эстрадный танец">Эстрадный танец</option>
+				    <option value="Народный танец">Народный танец</option>
+				    <option value="Классическая хореография">Классическая хореография</option>
+				</select>
+				</div>
+			</p>
+			<p><strong>Категория:</strong><br>
+				<div  style="color:#000">
+				<select id="category"  required name="category">
+				  	<option selected disabled>Выберите категорию</option>
+				    <option value="Solo">Solo</option>
+				    <option value="Duo/Trio">Duo/Trio</option>
+				    <option value="Crew/Small Group(4-9 участников)">Crew/Small Group(4-9 участников)</option>
+				    <option value="Megacrew/Big Group(10-30 участников)">Megacrew/Big Group(10-30 участников)</option>
+				</select>
+				</div>
+			</p>
+			<p><strong>Уровень подготовки:</strong><br>
+				<div style="color:#000">
+					<select id="skill_level"  required name="skill_level">
+					  	<option selected disabled>Выберите уровень</option>
+					    <option value="Beginners (Начинающие)">Beginners (Начинающие)</option>
+					    <option value="Skillful (Опытные)">Skillful (Опытные)</option>  
+					</select>
+				</div>
+
+			</p>
+			<p><strong>Возраст:</strong><br>
+				<div style="color:#000">
+				<select id="group_age"  required name="group_age">
+				  	<option selected disabled>Выберите возраст</option>
+				    <option value="Kids 7-10 лет">Kids 7-10 лет</option>
+				    <option value="Juniors 11-14 лет">Juniors 11-14 лет</option>
+				    <option value="Adults 15-18">Adults 15-18</option>
+				    <option value="Adults+ 19 лет и старше">Adults+ 19 лет и старше</option>
+				</select>
+				</div>
+			</p>
+			<p><strong>ФИО: </strong><br>
+				<input id="fio" style="color:#000;margin-top:0.5vw;" name="fio" required type="text" placeholder="ФИО руководителя"></p>
+
+			<p><strong>Телефон: </strong><br>
+				<input id="number" style="color:#000;margin-top:0.5vw;" name="tel_number" required type="tel" placeholder="Телефонный номер"></p>
+			<p><strong>Почта: </strong><br>
+				<input id="email" style="color:#000;margin-top:0.5vw;" required name="email" type="email" placeholder="Адрес электронной почты"></p>
+			<p><strong>Facebook: </strong><br>
+				<input id="facebook" style="color:#000;margin-top:0.5vw;" required  name="facebook" type="url" placeholder="Ссылка на профиль Facebook"></p>
+			<p><strong>Город: </strong><br>
+				<input id="city" style="color:#000;margin-top:0.5vw;" required name="city" type="text" placeholder="Город"></p>
+			<p><strong>Название номера: </strong><br>
+				<input id="number_name" style="color:#000;margin-top:0.5vw;" required name="number_name" 	type="text" placeholder="Название номера"></p>
+			<p><strong>Название команды: </strong><br>
+				<input id="team_name" style="color:#000;margin-top:0.5vw;" required name="team_name" type="text" placeholder="Название команды / ФИО учасника(-ов)(Solo,Duo/Trio)"></p>
+			<p><strong>Длительность выступления: </strong><br>
+				<input id="duration" style="color:#000;margin-top:0.5vw;" required name="duration" type="time" placeholder="Длительность выступления"></p>
+			<p><strong>Количество участников: </strong><br>
+				<input id="amount" style="color:#000;margin-top:0.5vw;" required name="amount" type="number" placeholder="Количество участников"></p>
+			<p><strong>Возраст самого младшего: </strong><br>
+				<input id="min_age" style="color:#000;margin-top:0.5vw;" required name="min_age" type="number" placeholder="Возраст самого младшего"></p>
+			<p><strong>Возраст самого старшего: </strong><br>
+				<input id="max_age" style="color:#000;margin-top:0.5vw;" required name="max_age" type="number" placeholder="Возраст самого старшего"></p>
+			<p><strong>Фото чека с оплатой:( png | jpg | jpeg, до 5Мб ) </strong><br>
+				<input id="photo_name" accept="image/*,image/jpeg"  type="file" name="photo_name" placeholder="" style="margin-left: 42vw;margin-top:0.5vw;"></p>
+			<p><strong>Аудио файл: ( mp3 или wav, до 50Мб ) </strong><br>
+				<input id="file_name" accept="audio/*,wav/mp3" required type="file" name="file_name" placeholder="Загрузите аудио файл" style="margin-left: 42vw;margin-top:0.5vw;"></p>
+			<!-- <p><strong>Начало выступления: </strong><br><input name="begining_time" disabled type="time" placeholder="Начало выступления"></p> -->
+			<p><strong>Стиль танцев: </strong><br><input id = "dance_style" style="color:#000;margin-top:0.5vw;" required type="textarea" name="dance_style" placeholder="Укажите ваш стиль танца в данном направлении (например хип-хоп, контемпорари, эстрадный танец и т. д.)"></p>
+			<input style="color:#000" type="submit" onclick="send_data_form();">	
+		</form>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>	
+		<script>
+			function send_data_form() {
+				var fd = new FormData(document.getElementById("form"));
+                // alert(fd);
+				$.ajax({
+				  url: "/my.php",
+				  type: "POST",
+				  data: fd,
+				  success: function(data){
+				  	alert(data);
+				  	window.location="/";
+				  },
+				  processData: false,  // tell jQuery not to process the data
+				  contentType: false   // tell jQuery not to set contentType
+				});
+			}
+	        function format_data(data){
+	        	nomination_select2 = document.getElementById("nomination_selectA");
+	        	let splitted_data = data.split('::');
+	        	let	input_id = [document.getElementById('nomination_selectA'),
+	        					document.getElementById('category'),
+	        					document.getElementById('skill_level'),
+	        					document.getElementById('group_age'),
+	        					document.getElementById('fio'),
+	        					document.getElementById('number'),
+	        					document.getElementById('email'),
+	        					document.getElementById('facebook'),
+	        					document.getElementById('city'),
+	        					document.getElementById('number_name'),
+	        					document.getElementById('team_name'),
+	        					document.getElementById('duration'),
+	        					document.getElementById('amount'),
+	        					document.getElementById('min_age'),
+	        					document.getElementById('max_age'),
+	        					document.getElementById('photo_name'),
+	        					document.getElementById('file_name'),
+	        					document.getElementById('dance_style')];
+	        	
+
+	        	for (var i = 0; i <splitted_data.length; i++) {
+	        		// alert(splitted_data[i].length);
+	        		try {
+	        			if (i==0)
+	        			{
+	        				input_id[i].value = splitted_data[i].substring(1);
+	        			}
+	        			else if (i == 11)
+	        			{
+	        				input_id[i].value = splitted_data[i].substring(3); 
+	        			}
+	        			else if (i == 15 || i == 16)
+	        			{
+	        				input_id[i].name = splitted_data[i];
+	        			}
+	        			else
+	        			{	
+	        				input_id[i].value = splitted_data[i];
+	        			}
+	        		} catch(e) {
+	        			continue;
+	        		}
+	        		
+	        	}
+
+	        }
+	        let url = window.location,
+	        	reg = new RegExp("num_form=[0-9]+"),
+	        	res_reg = reg.exec(url);
+	       		id_form = res_reg[0].substring(9);
+	        if (url!="http://www.bestdancefest.com.ua/form/"){
+	            $.ajax({
+	                type: "POST",
+	                url: "/my_update.php",
+	                data: {'id': id_form},
+	                success: function (phpData) {
+	                	 alert(phpData);
+	                	format_data(phpData);
+	                },
+	                complete: function () {
+	                },
+	                dataType: "text"
+	            });
+
+	        }
+
+		</script>
+	</div>

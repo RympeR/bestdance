@@ -1,25 +1,15 @@
 	<?php
-		require __DIR__ . '/vendor/autoload.php';
-		$client = new \Google_Client();
-		$client->setApplicationName('Google Sheets + PHP');
-		$client->setScopes([\Google_Service_Sheets::SPREADSHEETS]);
-		$client->setAccessType('offline');
-		$client->setAuthConfig(__DIR__ . '/credentials.json');
-		$service = new Google_Service_Sheets($client);
-		$spreadsheetid = "1YGq2KxM6oaTqn-Igrsi7fBTPdXI7cFcb9j5nESreoFI";
-		
 		
 		error_reporting(0);
 		//ini_set('display_errors', 0);
 
 		$upload_dir_photo = 'wp-content/themes/bestdancefest.com.ua/upload_files/photo_payment/';
 		$upload_dir_music = 'wp-content/themes/bestdancefest.com.ua/upload_files/music/';
-		$uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
-
+		
 		$photo = $_FILES['photo_name']['name'];
 		$audio = $_FILES['file_name']['name'];
-
 		if (isset($_FILES['photo_name']) && isset($_FILES['file_name'])){
+			echo "string_";
 			if ($_FILES['userfile']['error'] > 0){
 				echo "Mistake";
 			}
@@ -41,8 +31,8 @@
 			if($photo_size > 500000){
 				$errors[] = "Фотография не больше 5мб.";
 			}
-			if($audio_size > 5000000){
-				$errors[] = "Аудио не больше 50мб.";
+			if($audio_size > 2400000){
+				$errors[] = "Аудио не больше 24мб.";
 			}
 
 			if (empty($errors) == true){
@@ -57,6 +47,7 @@
 				echo"$errors";
 			}
 		}
+		else echo "error";
 
 		$user_id = $_POST["id_user"];
 		$servername = "bestda01.mysql.tools";
@@ -81,7 +72,6 @@
 
 			$res=preg_match("/num_form=[0-9]+/", $url_addres, $array);
 			$form_num = substr($array[0], 9);
-
 			$sql_input = "UPDATE DATA_INPUT SET user_id= $user_id,nomination=".'"'.
 				$_POST["nomination"].'",'.
 				"category=".'"'.$_POST["category"].'",'.
@@ -222,5 +212,4 @@
 		}
 
 		$conn->close();
-		// 	audio ta http-equiv='refresh' content='0; url= /'>");
 	 ?> 

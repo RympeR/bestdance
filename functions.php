@@ -60,8 +60,7 @@ function my_manage_wpcf7s_columns( $colname, $post_id ){
 
 
 function custom_shortcode() {
-	 $user_id = get_current_user_id();
-	 return $user_id;
+	 return get_current_user_id();
 }
 add_shortcode( 'get-login', 'custom_shortcode' );
 
@@ -97,5 +96,25 @@ function generate_links(){
 }
 add_shortcode('gen_links','generate_links');
 
+
+function get_max_id(){
+	$servername = "bestda01.mysql.tools";
+	$username = "bestda01_db";
+	$password = "LuyjNXUD";
+	$dbname = "bestda01_db";
+	
+	$conn = new mysqli($servername, $username, $password, $dbname);
+	if ($conn->connect_error){
+		die("Connection error: ");
+	}
+
+	$max_form = "SELECT MAX(id) as value FROM DATA_INPUT;";
+	$res_max = $conn->query($max_form);
+	$row = $res_max->fetch_assoc(); 
+	return $row["value"]+1;
+
+}
+
+add_shortcode('get_max_id_incr','get_max_id');
 ?>
 

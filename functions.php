@@ -111,10 +111,26 @@ function get_max_id(){
 	$max_form = "SELECT MAX(id) as value FROM DATA_INPUT;";
 	$res_max = $conn->query($max_form);
 	$row = $res_max->fetch_assoc(); 
-	return $row["value"]+1;
+
+	$url_addres = 'http://'.$_SERVER['HTTP_REFERER'].$_SERVER['REQUEST_URI'];
+
+	if(preg_match("/num_form=[0-9]+/", $url_addres, $array)){
+		$res=preg_match("/num_form=[0-9]+/", $url_addres, $array);
+		return $form_num = substr($array[0], 9);
+		 }
+	else
+		return $row["value"]+1;
+
+
 
 }
 
 add_shortcode('get_max_id_incr','get_max_id');
+	
+function get_audio_name(){
+	return $_FILES["file_name"]["name"];
+}
+
+add_shortcode('get_audio','get_audio_name');
 ?>
 

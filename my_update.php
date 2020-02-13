@@ -44,8 +44,8 @@
 	            echo "".$nomination."::".$category."::".$skill_level."::".$group_age.
 	            "::".$fio."::".$number."::".$email."::".$facebook."::".$city.
 	            "::".$number_name."::".$team_name."::".$duration."::".$amount.
-	            "::".$max_age."::".$min_age."::".$photo_name."::".$file_name.
-	            "::".$dance_style;
+	            "::".$max_age."::".$min_age."::".$photo_name.
+	            "::".$dance_style."::".$file_name;
 	        }
 	        $conn->close();
     	

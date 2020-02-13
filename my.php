@@ -28,10 +28,10 @@
 			$expension_photo = array('jpeg','png');
 			$expension_photo = array('mp3','wav');
 
-			if($photo_size > 500000){
+			if($photo_size > 50000000){
 				$errors[] = "Фотография не больше 5мб.";
 			}
-			if($audio_size > 2400000){
+			if($audio_size > 240000000){
 				$errors[] = "Аудио не больше 24мб.";
 			}
 
@@ -91,47 +91,52 @@
 				"photo_name=".'"'.$photo.'",'.
 				"file_name=".'"'.$audio.'",'.
 				"dance_style=".'"'.$_POST["dance_style"].'" WHERE'." id=$form_num;";
+
+
+
+
+			// echo "string";
 			// $res_max = $conn->query($sql_input);
 
-			$max_form = "SELECT MAX(id) as value FROM DATA_INPUT;";
-			$res_max = $conn->query($max_form);
+			// $max_form = "SELECT MAX(id) as value FROM DATA_INPUT;";
+			// $res_max = $conn->query($max_form);
 
-			$row = $res_max->fetch_assoc();
-			for ($i=$form_num; $i <= $row["value"]; $i++) { 
+			// $row = $res_max->fetch_assoc();
+			// for ($i=$form_num; $i <= $row["value"]; $i++) { 
 
-				if ($i>1){
-					$a = $i-1;
+			// 	if ($i>1){
+			// 		$a = $i-1;
 					
-					$sql_timing_1 = "SELECT id,duration,begining_time FROM DATA_INPUT WHERE id=$a;";
-					//echo $row["value"];
-					$timing = $conn->query($sql_timing_1);
+			// 		$sql_timing_1 = "SELECT id,duration,begining_time FROM DATA_INPUT WHERE id=$a;";
+			// 		//echo $row["value"];
+			// 		$timing = $conn->query($sql_timing_1);
 					
-					if ($conn->query($sql_timing_1) === TRUE) {
-			    	//	echo "record updated successfully";	
-					} else {
-				    	//echo "Error: " . $sql . "<br>" . $conn->error ."<br>";
-					}
+			// 		if ($conn->query($sql_timing_1) === TRUE) {
+			//     	//	echo "record updated successfully";	
+			// 		} else {
+			// 	    	//echo "Error: " . $sql . "<br>" . $conn->error ."<br>";
+			// 		}
 
 					
-					while($row_timing = $timing->fetch_assoc()) {
+			// 		while($row_timing = $timing->fetch_assoc()) {
 					
-						//echo $row_timing["begining_time"] + "<br>";
-						//echo $row_timing["duration"] + "<br>";
+			// 			//echo $row_timing["begining_time"] + "<br>";
+			// 			//echo $row_timing["duration"] + "<br>";
 							
-						$sql_update = "UPDATE DATA_INPUT SET begining_time=SEC_TO_TIME(TIME_TO_SEC(".'"'.$row_timing["begining_time"].'"'.
-						") + TIME_TO_SEC(".'"'.$row_timing["duration"].'"'.")) WHERE id=$i;";
-						if ($conn->query($sql_update)){
-							//echo "time managed";
-						}else {
-				    	//	echo "Error: " . $sql . "<br>" . $conn->error ;
-						}
+			// 			$sql_update = "UPDATE DATA_INPUT SET begining_time=SEC_TO_TIME(TIME_TO_SEC(".'"'.$row_timing["begining_time"].'"'.
+			// 			") + TIME_TO_SEC(".'"'.$row_timing["duration"].'"'.")) WHERE id=$i;";
+			// 			if ($conn->query($sql_update)){
+			// 				//echo "time managed";
+			// 			}else {
+			// 	    	//	echo "Error: " . $sql . "<br>" . $conn->error ;
+			// 			}
 
-					}
+			// 		}
 					
-				}
-				else
-					continue;
-			}
+			// 	}
+			// 	else
+			// 		continue;
+			// }
 
 			//echo $sql_input;
 
@@ -178,13 +183,15 @@
 				$_POST['email'].'"'.",".'"'.$_POST['facebook'].'"'.",".'"'.$_POST['city'].'"'.",".'"'.$_POST['number_name'].'"'.",".'"'.
 				$_POST['team_name'].'"'.",".'"00:'.$_POST['duration'].'"'.",".$_POST['amount'].",".$_POST['max_age'].",".
 				$_POST['min_age'] .",".'"'.$audio .'"'.",".'"'."NULL".'"'.",".'"'.$_POST['dance_style'].'"'.",NULL);";
+
+			// echo $sql_input;
 			//$_POST['photo_name']
 
-			// if ($conn->query($sql_input) === TRUE) {
-		 //    	echo "New record created successfully";
-			// } else {
-		 //    	echo "Error: " . $sql . "<br>" . $conn->error ;
-			// }
+			if ($conn->query($sql_input) === TRUE) {
+		    	// echo "New record created successfully";
+			} else {
+		    	// echo "Error: " . $sql . "<br>" . $conn->error ;
+			}
 
 			$to_email = 'georg.rashkov@gmail.com';
 			$subject = 'DanceForm';

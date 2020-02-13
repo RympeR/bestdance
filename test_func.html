@@ -1,8 +1,10 @@
-[paste_data]
 <div style="text-align: center;">
 	<div id="response"></div>
-	<form onsubmit="return false" method="POST" name="client_form" id="form" enctype="multipart/form-data">
+	<form onsubmit="return false"  name="client_form"  id="form" enctype="multipart/form-data">
 		<input id="1" name="id_user" type="hidden" value=[get-login]>
+		<input id="music_name_info_" name="music_name_info_" type="hidden">
+		<input type="hidden" id="get_max_id_incr" disabled name="get_max_id_incr" value=[get_max_id_incr]>
+
 		<h2 class="coloredHeader">Основная информация</h2>
 		<p><strong>Номинация:</strong><br>
 			<div style="color:#000">
@@ -82,7 +84,7 @@
 		<p><strong>Аудио файл: ( mp3 или wav, до 24Мб ) </strong><br>
 			<input id="file_name" required type="file" name="file_name" placeholder="Загрузите аудио файл" 
 				style="margin-left: 42vw;margin-top:0.5vw;"></p>
-
+		<span style="font-weight: : bold; text-decoration:underline; " id="old_file"></span>
 		<h2 class="coloredHeader">Контактная информация</h2>
 		<p><strong>ФИО: </strong><br>
 			<input id="fio" style="color:#000;margin-top:0.5vw;" name="fio" required type="text"
@@ -105,45 +107,74 @@
 			<input id="photo_name"  type="file" name="photo_name" placeholder=""
 				style="margin-left: 42vw;margin-top:0.5vw;"></p>
 		<input class="submitButton" type="submit" onclick="send_data_form();">
-
 	</form>
-	<p id="progress">1</p>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script>
+		window.onload = function(){
+			document.getElementsByTagName('input')[10].onchange = function() {
+			if (this.files[0]) // если выбрали файл
+				document.getElementById("music_name_info_").value = this.files[0].name;
+			};
+		}
+		function send_data_form() {
+			
+		
 
-	function send_data_form() {
-      var fd = new FormData(document.getElementById("form"));
-      fd.append('photo_name', $('#photo_name')[0].files[0]);
-      fd.append('file_name', $('#file_name')[0].files[0]);
-      // alert(fd);
-      $.ajax({
-        url: "/my.php",
-        type: "POST",
-        data: fd,
-        enctype: 'multipart/form-data',
-        beforeSend: function(XMLHttpRequest)
-        {
+			var script_url = "https://script.google.com/macros/s/AKfycbzJi6ps1ah7OUIEtqcGHT39KkfZPlZZoi1EEo4k6JMkKkl_Iy8/exec";
 
-              /* Используем XMLHttpRequest.upload для получения события загрузки на сервер */
-              XMLHttpRequest.upload.addEventListener("progress", function(evt){
-                  if (evt.lengthComputable) {  
-                  	alert("here");
-                      var percentComplete = evt.loaded / evt.total;
-                      $("#progress").text(Math.floor(complete*100)+"%");
-                  }
-              }, false);
-          },
-        success: function (data) {
-           alert(data);
-           //window.location = "/";
-        },
-        processData: false,  // tell jQuery not to process the data
-        contentType: false   // tell jQuery not to set contentType
-      });
-    }
+  			var duration = $("#duration").val(),
+				team_name = $("#team_name").val(),
+				fio = $("#fio").val(),
+				dance_style = $("#dance_style").val(),
+				city = $("#city").val(),
+				music = $("#music_name_info_").val(),
+				get_id_form = document.getElementById("get_max_id_incr").value,
+				url = window.location;
+
+			if (url != "http://www.bestdancefest.com.ua/form/") {
+
+
+				var url = script_url+"?callback=ctrlq&id_form="+id_form+"&duration="+duration+"&team_name="+team_name+"&fio="+fio+"&dance_style="+dance_style+"&city="+city+"&music="+music+"&action=update";
+
+			}
+			else{
+				var url = script_url+"?callback=ctrlq&id_form="+get_id_form+"&duration="+duration+"&team_name="+team_name+"&fio="+fio+"&dance_style="+dance_style+"&city="+city+"&music="+music+"&action=insert";
+			}
+				
+
+				alert(url);
+
+
+			var request = jQuery.ajax({
+			      crossDomain: true,
+			      url: url ,
+			      method: "GET",
+			      dataType: "jsonp"
+			    });
+
+			
+			
+			var fd = new FormData(document.getElementById("form"));
+			fd.append('file_name', $('#file_name')[0].files[0]);
+			fd.append('photo_name', $('#photo_name')[0].files[1]);
+
+			$.ajax({
+				url: "/my.php",
+				type: "POST",
+				data: fd,
+				success: function (data) {
+					// alert(data);
+					window.location = "/";
+				},
+				processData: false,  // tell jQuery not to process the data
+				contentType: false   // tell jQuery not to set contentType
+			});
+		}
 		function format_data(data) {
-			nomination_select2 = document.getElementById("nomination_selectA");
-			let splitted_data = data.split('::');
+		
+			let splitted_data = data.split('::'),
+				music_name_info = document.getElementById("music_name_info_");
+			
 			let input_id = [document.getElementById('nomination_selectA'),
 			document.getElementById('category'),
 			document.getElementById('skill_level'),
@@ -160,8 +191,8 @@
 			document.getElementById('min_age'),
 			document.getElementById('max_age'),
 			document.getElementById('photo_name'),
-			document.getElementById('file_name'),
-			document.getElementById('dance_style')];
+			document.getElementById('dance_style'),
+			document.getElementById('old_file')];
 
 
 			for (var i = 0; i < splitted_data.length; i++) {
@@ -171,26 +202,35 @@
 				else if (i == 11) {
 					input_id[i].value = splitted_data[i].substring(3);
 				}	
-				else if (i == 15 || i == 16) {
+				else if (i == 15) {
 					input_id[i].name = splitted_data[i];
+				}
+				else if( i == 17 ){
+					input_id[i].innerHTML +="Старая композиция: " + splitted_data[i];
 				}
 				else {
 					input_id[i].value = splitted_data[i];
 				}
 
 			}
+
 		}
+		
+
+
 		let url = window.location,
 			reg = new RegExp("num_form=[0-9]+"),
 			res_reg = reg.exec(url);
 		id_form = res_reg[0].substring(9);
+		//alert(window.location)
 		if (url != "http://www.bestdancefest.com.ua/form/") {
+			//alert("here")
 			$.ajax({
 				type: "POST",
 				url: "/my_update.php",
 				data: { 'id': id_form },
 				success: function (phpData) {
-					//alert(phpData);
+					alert(phpData);
 					format_data(phpData);
 				},
 				complete: function () {
@@ -198,7 +238,13 @@
 				dataType: "text"
 			});
 
+
+			
+
 		}
+
+
+
 
 	</script>
 

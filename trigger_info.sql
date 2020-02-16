@@ -20,12 +20,11 @@ CREATE TABLE DATA_INPUT(
     min_age INT NOT NULL,
     photo_name VARCHAR(255), 
     file_name VARCHAR(255) NOT NULL,
-    dance_style VARCHAR(255) NOT NULL,
-    begining_time TIME
+    dance_style VARCHAR(255) NOT NULL
 );
 
 INSERT INTO DATA_INPUT VALUES 
-    (1,1,"ABC","ABC","ABC","ABC","ABC","ABC","ABC","ABC","ABC","ABC","ABC","00:00:00:",1,1,1,"hi.jpg","DUDE.MP3","abc","07:59:00");
+    (1,1,"ABC","ABC","ABC","ABC","ABC","ABC","ABC","ABC","ABC","ABC","ABC","00:00:00:",1,1,1,"hi.jpg","DUDE.MP3","abc");
 DELIMITER $$
  
 CREATE TRIGGER before_begining_insert
@@ -41,3 +40,4 @@ BEGIN
         SET new.begining_time = SEC_TO_TIME(TIME_TO_SEC(old_begining) + TIME_TO_SEC(old_duration) + 60);
  
 END $$
+

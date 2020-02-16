@@ -1,0 +1,124 @@
+<div style="text-align: center;">
+	<form onsubmit="return false" name="form" id="form">
+		<p><strong>Начало фестиваля: </strong><br>
+			<input id="begining" style="color:#000;margin-top:0.5vw;" required name="begining" type="time"
+				placeholder="Начало фестиваля"></p>
+		<p><strong>Колличество перерывов: </strong><br>
+			<p><strong>28е Марта</strong></p>
+			<input id="amount_rest_day_1" style="color:#000;margin-top:0.5vw;" required name="amount_rest_day_1" type="number"
+				placeholder="Колличество перерывов">
+			<p><br><strong>29е Марта</strong></p>
+			<input id="amount_rest_day_2" style="color:#000;margin-top:0.5vw;" required name="amount_rest_day_2" type="number"
+				placeholder="Колличество перерывов"></p>
+		<p><strong>Длительность перерыва: </strong><br>
+			<input id="duration_rest" style="color:#000;margin-top:0.5vw;" required name="duration_rest" type="time">
+		</p>
+		<input class="submitButton" type="submit" onclick="send_data_form();">
+	</form>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<div id="preview"></div>
+	<script>
+		function send_data_form() {
+			// alert("1");
+			var fd = new FormData(document.getElementById("form"));
+			// alert("2");
+			$.ajax({
+				url: "/auto_timing.php",
+				type: "POST",
+				data: fd,
+				success: function (data) {
+					//alert(data);
+					format_data(data);
+					// window.location = "/";
+				},
+				processData: false,  // tell jQuery not to process the data
+				contentType: false   // tell jQuery not to set contentType
+			});
+			// alert("4");
+
+		}
+
+		function format_data(data) {
+			var script_url = "https://script.google.com/macros/s/AKfycbyqgdgyiBFSU8w7Seivk4bw421W_KRXDaDLzaSsdWo7xdQsQ9nZ/exec";
+			var symb = "&";
+			var url = script_url + "?callback=ctrlq" + symb + "action=delete";
+			var request = jQuery.ajax({
+				crossDomain: true,
+				url: url,
+				method: "GET",
+				dataType: "jsonp"
+			});
+			
+			var split_data = data.split(':::');
+			alert(split_data);
+			for (let i = 0; i < split_data.length; i++) {
+				split_data[i] = split_data[i].split('::');
+
+				if (split_data[i].length == 1) {
+					url = "" + script_url + "?callback=ctrlq" + symb + "id_form=" + split_data[i][0] + "" + symb + "action=insert_date";
+					// alert(url);
+					alert(1);
+				}
+				else if (split_data[i].length < 5) {
+					alert(2);
+					url = "" + script_url + "?callback=ctrlq" + symb + "id_form=" + split_data[i][0] + "" + symb + "duration=" + split_data[i][1] + "" + symb + "begining=" + split_data[i][2] + "" + symb + "action=insert_rest";
+					// alert(url);
+				}
+				else {
+					alert(3);
+					url = "" + script_url + "?callback=ctrlq" + symb + "id_form=" + split_data[i][0] + "" + symb + "duration=" + split_data[i][1] + "" + symb + "nomination=" + split_data[i][2] + "" + symb + "team_name=" + split_data[i][3] + "" + symb + "fio=" + split_data[i][5] + "" + symb + "dance_style=" + split_data[i][4] + "" + symb + "city=" + split_data[i][6] + "" + symb + "music=" + split_data[i][7] + "" + symb + "begining=" + split_data[i][8] + "" + symb + "action=insert";
+					// alert(url);
+				}
+				// alert(url);
+				var request = jQuery.ajax({
+					crossDomain: true,
+					url: url,
+					method: "GET",
+					dataType: "jsonp"
+				});
+			}
+		}
+
+	</script>
+</div>
+<style>
+	input,
+	button,
+	select,
+	textarea {
+		width: 400px;
+		text-align: center;
+		padding: 10px;
+	}
+
+	.submitButton {
+		background-color: #30c323;
+		color: #fff;
+		font-weight: 600;
+		font-family: Roboto, Helvetica, sans-serif;
+		border: 0;
+		padding: 20px;
+	}
+
+	.submitButton:hover {
+		background-color: #5ce750;
+	}
+
+	.coloredHeader {
+
+		display: flex;
+		margin: 30px auto;
+		width: 600px;
+		border: 1px solid;
+		border-radius: 42px;
+		padding: 20px;
+		padding-top: 20px;
+		padding-right: 20px;
+		padding-bottom: 20px;
+		padding-left: 20px;
+		text-align: center;
+		align-items: center;
+		justify-content: center;
+		cursor: default;
+	}
+</style>

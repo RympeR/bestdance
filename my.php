@@ -1,18 +1,13 @@
 	<?php
 		
 		error_reporting(0);
-		//ini_set('display_errors', 0);
 
 		$upload_dir_photo = 'wp-content/themes/bestdancefest.com.ua/upload_files/photo_payment/';
 		$upload_dir_music = 'wp-content/themes/bestdancefest.com.ua/upload_files/music/';
 		
 		$photo = $_FILES['photo_name']['name'];
 		$audio = $_FILES['file_name']['name'];
-		if (isset($_FILES['photo_name']) && isset($_FILES['file_name'])){
-			echo "string_";
-			if ($_FILES['userfile']['error'] > 0){
-				echo "Mistake";
-			}
+		if (isset($_FILES['photo_name']) || isset($_FILES['file_name'])){
 			$errors = array();
 			$photo = $_FILES['photo_name']['name'];
 			$audio = $_FILES['file_name']['name'];
@@ -20,11 +15,7 @@
 			$audio_size = $_FILES['file_name']['size'];
 			$photo_tmp = $_FILES['photo_name']['tmp_name'];
 			$audio_tmp = $_FILES['file_name']['tmp_name'];
-			$photo_type = $_FILES['photo_name']['type'];
-			$audio_type = $_FILES['file_name']['type'];
-			$photo_ext = strtolower(end(explode('.', $_FILES['photo_name']['name'])));
-			$audio_ext = strtolower(end(explode('.', $_FILES['file_name']['name'])));
-			
+
 			$expension_photo = array('jpeg','png');
 			$expension_photo = array('mp3','wav');
 
@@ -36,12 +27,18 @@
 			}
 
 			if (empty($errors) == true){
-				echo $photo_type." ";
-				echo $audio_type;
-				move_uploaded_file($photo_tmp,$upload_dir_photo.$photo);
-				move_uploaded_file($audio_tmp,$upload_dir_music.$audio);
-
-				// echo "success";
+				try{
+					move_uploaded_file($photo_tmp,$upload_dir_photo.$photo);	
+				}
+				catch (Exception $e) {
+					echo "photo trouble";
+				}
+				try{
+					move_uploaded_file($audio_tmp,$upload_dir_music.$audio);
+				}
+				catch (Exception $e) {
+					echo "video trouble";
+				}
 			}
 			else{
 				echo"$errors";
@@ -92,62 +89,11 @@
 				"file_name=".'"'.$audio.'",'.
 				"dance_style=".'"'.$_POST["dance_style"].'" WHERE'." id=$form_num;";
 
-
-
-
-			// echo "string";
-			// $res_max = $conn->query($sql_input);
-
-			// $max_form = "SELECT MAX(id) as value FROM DATA_INPUT;";
-			// $res_max = $conn->query($max_form);
-
-			// $row = $res_max->fetch_assoc();
-			// for ($i=$form_num; $i <= $row["value"]; $i++) { 
-
-			// 	if ($i>1){
-			// 		$a = $i-1;
-					
-			// 		$sql_timing_1 = "SELECT id,duration,begining_time FROM DATA_INPUT WHERE id=$a;";
-			// 		//echo $row["value"];
-			// 		$timing = $conn->query($sql_timing_1);
-					
-			// 		if ($conn->query($sql_timing_1) === TRUE) {
-			//     	//	echo "record updated successfully";	
-			// 		} else {
-			// 	    	//echo "Error: " . $sql . "<br>" . $conn->error ."<br>";
-			// 		}
-
-					
-			// 		while($row_timing = $timing->fetch_assoc()) {
-					
-			// 			//echo $row_timing["begining_time"] + "<br>";
-			// 			//echo $row_timing["duration"] + "<br>";
-							
-			// 			$sql_update = "UPDATE DATA_INPUT SET begining_time=SEC_TO_TIME(TIME_TO_SEC(".'"'.$row_timing["begining_time"].'"'.
-			// 			") + TIME_TO_SEC(".'"'.$row_timing["duration"].'"'.")) WHERE id=$i;";
-			// 			if ($conn->query($sql_update)){
-			// 				//echo "time managed";
-			// 			}else {
-			// 	    	//	echo "Error: " . $sql . "<br>" . $conn->error ;
-			// 			}
-
-			// 		}
-					
-			// 	}
-			// 	else
-			// 		continue;
-			// }
-
-			//echo $sql_input;
-
 			
 
 			if ($conn->query($sql_input) === TRUE) {
 		    	// echo "record updated successfully";	
 			}
-			// else {
-		 	//	echo "Error: " . $sql . "<br>" . $conn->error ;
-			// }
 
 			$to_email = 'georg.rashkov@gmail.com';
 			$subject = 'DanceForm';
@@ -169,7 +115,6 @@
 					'Минимальный возраст '. $_POST["min_age"] . "\n" .
 					'Путь к чеку с оплатой '. $photo . "\n" .
 					'Путь/имя трека '. $audio . "\n" .
-					'Время начала '. $_POST["begining_time"] . "<br>" .
 					'Стиль танца '. $_POST["dance_style"];
 			
 			$headers = $_POST["email"];
@@ -182,16 +127,11 @@
 				$_POST["skill_level"].'"'.",".'"'.$_POST['group_age'].'"'.",".'"'.$_POST['fio'].'"'.",".'"'.$_POST['tel_number'].'"'.",".'"'.
 				$_POST['email'].'"'.",".'"'.$_POST['facebook'].'"'.",".'"'.$_POST['city'].'"'.",".'"'.$_POST['number_name'].'"'.",".'"'.
 				$_POST['team_name'].'"'.",".'"00:'.$_POST['duration'].'"'.",".$_POST['amount'].",".$_POST['max_age'].",".
-				$_POST['min_age'] .",".'"'.$audio .'"'.",".'"'."NULL".'"'.",".'"'.$_POST['dance_style'].'"'.",NULL);";
-
-			// echo $sql_input;
-			//$_POST['photo_name']
-
+				$_POST['min_age'] .",".'"'."NULL" .'"'.",".'"'.$audio.'"'.",".'"'.$_POST['dance_style'].'"'.");";
+			echo $sql_input;
 			if ($conn->query($sql_input) === TRUE) {
 		    	// echo "New record created successfully";
-			} else {
-		    	// echo "Error: " . $sql . "<br>" . $conn->error ;
-			}
+			} 
 
 			$to_email = 'georg.rashkov@gmail.com';
 			$subject = 'DanceForm';

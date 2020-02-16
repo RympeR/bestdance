@@ -82,12 +82,16 @@ function generate_links(){
 				WHERE user_id =  $user_id";
 
 	$result = $conn->query($sql);
-	
+
 	echo '<div id="lk-content" class="rcl-content"><div id="tab-zakazy_25" class="zakazy_25_block recall_content_block active"><div id="subtab-subtab-1" class="rcl-subtab-content">';
+
+	if (custom_shortcode() == "1"){
+		echo "<a class='user-order-link' style='color:#000;' href='http://www.bestdancefest.com.ua/form_timing'>Сформировать тайминг</a><br>";
+	}
 	while($row = $result->fetch_assoc()) {
 
 		//echo "num form:".$row["id"]."<br>";
-		echo "<a style='color:#000;' href='http://www.bestdancefest.com.ua/form?num_form=".$row["id"]."'/>Заявка ".$row["id"].'</a>';
+		echo "<a class='user-order-link' style='color:#000;' href='http://www.bestdancefest.com.ua/form?num_form=".$row["id"]."'/>Заявка ".$row["id"].'</a>';
 		echo "<br>";
 	}
 	echo "</div></div></div>";

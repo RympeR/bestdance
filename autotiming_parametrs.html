@@ -19,9 +19,7 @@
 	<div id="preview"></div>
 	<script>
 		function send_data_form() {
-			// alert("1");
 			var fd = new FormData(document.getElementById("form"));
-			// alert("2");
 			$.ajax({
 				url: "/auto_timing.php",
 				type: "POST",
@@ -29,12 +27,11 @@
 				success: function (data) {
 					//alert(data);
 					format_data(data);
-					// window.location = "/";
+					window.location = "/";
 				},
 				processData: false,  // tell jQuery not to process the data
 				contentType: false   // tell jQuery not to set contentType
 			});
-			// alert("4");
 
 		}
 
@@ -57,19 +54,16 @@
 				if (split_data[i].length == 1) {
 					url = "" + script_url + "?callback=ctrlq" + symb + "id_form=" + split_data[i][0] + "" + symb + "action=insert_date";
 					// alert(url);
-					alert(1);
 				}
 				else if (split_data[i].length < 5) {
-					alert(2);
 					url = "" + script_url + "?callback=ctrlq" + symb + "id_form=" + split_data[i][0] + "" + symb + "duration=" + split_data[i][1] + "" + symb + "begining=" + split_data[i][2] + "" + symb + "action=insert_rest";
 					// alert(url);
 				}
 				else {
-					alert(3);
 					url = "" + script_url + "?callback=ctrlq" + symb + "id_form=" + split_data[i][0] + "" + symb + "duration=" + split_data[i][1] + "" + symb + "nomination=" + split_data[i][2] + "" + symb + "team_name=" + split_data[i][3] + "" + symb + "fio=" + split_data[i][5] + "" + symb + "dance_style=" + split_data[i][4] + "" + symb + "city=" + split_data[i][6] + "" + symb + "music=" + split_data[i][7] + "" + symb + "begining=" + split_data[i][8] + "" + symb + "action=insert";
 					// alert(url);
 				}
-				// alert(url);
+				alert(url);
 				var request = jQuery.ajax({
 					crossDomain: true,
 					url: url,

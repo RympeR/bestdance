@@ -2,16 +2,9 @@
 	<form onsubmit="return false" name="form" id="form">
 		<p><strong>Начало фестиваля: </strong><br>
 			<input id="begining" style="color:#000;margin-top:0.5vw;" required name="begining" type="time"
-				placeholder="Начало фестиваля"></p>
-		<p><strong>Колличество перерывов: </strong><br>
-			<p><strong>28е Марта</strong></p>
-			<input id="amount_rest_day_1" style="color:#000;margin-top:0.5vw;" required name="amount_rest_day_1" type="number"
-				placeholder="Колличество перерывов">
-			<p><br><strong>29е Марта</strong></p>
-			<input id="amount_rest_day_2" style="color:#000;margin-top:0.5vw;" required name="amount_rest_day_2" type="number"
-				placeholder="Колличество перерывов"></p>
-		<p><strong>Длительность перерыва: </strong><br>
-			<input id="duration_rest" style="color:#000;margin-top:0.5vw;" required name="duration_rest" type="time">
+				placeholder="Начало фестиваля"></p> 
+		<!--<p><strong>Длительность перерыва: </strong><br>
+			<input id="duration_rest" style="color:#000;margin-top:0.5vw;" required name="duration_rest" type="time"> -->
 		</p>
 		<input class="submitButton" type="submit" onclick="send_data_form();">
 	</form>
@@ -27,7 +20,10 @@
 				success: function (data) {
 					//alert(data);
 					format_data(data);
-					window.location = "/";
+					// setTimeout(function(){
+					// 	window.location = "/";
+					// }, 5500);
+					
 				},
 				processData: false,  // tell jQuery not to process the data
 				contentType: false   // tell jQuery not to set contentType
@@ -36,7 +32,7 @@
 		}
 
 		function format_data(data) {
-			var script_url = "https://script.google.com/macros/s/AKfycbyqgdgyiBFSU8w7Seivk4bw421W_KRXDaDLzaSsdWo7xdQsQ9nZ/exec";
+			var script_url = "https://script.google.com/macros/s/AKfycbw2lVMqLAAwhxc9GdhFqX7iTsKbd7qHLjrCgEzDh4RlEXuTlhFB/exec";
 			var symb = "&";
 			var url = script_url + "?callback=ctrlq" + symb + "action=delete";
 			var request = jQuery.ajax({
@@ -46,30 +42,39 @@
 				dataType: "jsonp"
 			});
 			
+
+			var url = script_url + "?callback=ctrlq" + symb + "id_form=id_form" + symb + "duration=duration" + symb + "nomination=nomination" + symb + "team_name=team_name" + symb + "fio=fio" + symb + "dance_style=dance_style" + symb + "city=city" + symb + "music=music" + symb + "begining=begining"  + symb + "action=insert";
+			var request = jQuery.ajax({
+				crossDomain: true,
+				url: url,
+				method: "GET",
+				dataType: "jsonp"
+			});
+
+
+
 			var split_data = data.split(':::');
 			alert(split_data);
 			for (let i = 0; i < split_data.length; i++) {
 				split_data[i] = split_data[i].split('::');
 
-				if (split_data[i].length == 1) {
-					url = "" + script_url + "?callback=ctrlq" + symb + "id_form=" + split_data[i][0] + "" + symb + "action=insert_date";
-					// alert(url);
-				}
-				else if (split_data[i].length < 5) {
-					url = "" + script_url + "?callback=ctrlq" + symb + "id_form=" + split_data[i][0] + "" + symb + "duration=" + split_data[i][1] + "" + symb + "begining=" + split_data[i][2] + "" + symb + "action=insert_rest";
-					// alert(url);
+				if (split_data[i].length == 2) {
+					url = "" + script_url + "?callback=ctrlq" + symb + "id_form=" + split_data[i][0] + "" + symb + "begining=" + split_data[i][1] + "" + symb + "action=insert_date";
 				}
 				else {
-					url = "" + script_url + "?callback=ctrlq" + symb + "id_form=" + split_data[i][0] + "" + symb + "duration=" + split_data[i][1] + "" + symb + "nomination=" + split_data[i][2] + "" + symb + "team_name=" + split_data[i][3] + "" + symb + "fio=" + split_data[i][5] + "" + symb + "dance_style=" + split_data[i][4] + "" + symb + "city=" + split_data[i][6] + "" + symb + "music=" + split_data[i][7] + "" + symb + "begining=" + split_data[i][8] + "" + symb + "action=insert";
-					// alert(url);
+					url = "" + script_url + "?callback=ctrlq" + symb + "id_form=" + split_data[i][1] + "" + symb + "duration=" + split_data[i][2] + "" + symb + "nomination=" + split_data[i][3] + "" + symb + "team_name=" + split_data[i][4] + "" + symb + "fio=" + split_data[i][6] + "" + symb + "dance_style=" + split_data[i][5] + "" + symb + "city=" + split_data[i][7] + "" + symb + "music=" + split_data[i][8] + "" + symb + "begining=" + split_data[i][9] + "" + symb + "action=insert";
 				}
-				alert(url);
-				var request = jQuery.ajax({
+				// alert(url);
+				setTimeout(function(){
+					var request = jQuery.ajax({
+					async:false,
 					crossDomain: true,
 					url: url,
 					method: "GET",
 					dataType: "jsonp"
 				});
+				}, 1000);
+				
 			}
 		}
 

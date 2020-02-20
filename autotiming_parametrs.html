@@ -20,17 +20,14 @@
 				success: function (data) {
 					//alert(data);
 					format_data(data);
-					// setTimeout(function(){
-					// 	window.location = "/";
-					// }, 5500);
-					
+					window.location = "/";
 				},
 				processData: false,  // tell jQuery not to process the data
 				contentType: false   // tell jQuery not to set contentType
 			});
 
 		}
-
+		
 		function format_data(data) {
 			var script_url = "https://script.google.com/macros/s/AKfycbw2lVMqLAAwhxc9GdhFqX7iTsKbd7qHLjrCgEzDh4RlEXuTlhFB/exec";
 			var symb = "&";

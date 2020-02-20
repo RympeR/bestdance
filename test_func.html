@@ -106,6 +106,9 @@
 		<p><strong style="color: #e6af0e;">Фото чека с оплатой:( png | jpg | jpeg, до 5Мб ) </strong><br>
 			<input id="photo_name" accept="image/*" type="file" name="photo_name" placeholder=""
 				style="margin-left: 42vw;margin-top:0.5vw;"></p>
+		<div id="loader"></div>
+
+		<p id="re"></p>
 		<input class="submitButton" type="submit" onclick="send_data_form();">
 	</form>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -144,7 +147,10 @@
 				
 
 				//alert(url);
-
+		
+			$("#re").css("visibility","hidden");
+	 		document.getElementById("loader").style.visibility = "visible";
+			$('#mySpinner').addClass('spinner');
 
 			var request = jQuery.ajax({
 			      crossDomain: true,
@@ -314,5 +320,29 @@
 		align-items: center;
 		justify-content: center;
 		cursor: default;
+	}
+
+	#loader {
+		align-items: center;
+  		justify-content: center;
+		border: 16px solid #f3f3f3;
+		border-radius: 50%;
+		border-top: 16px solid blue;
+		border-bottom: 16px solid blue;
+		width: 60px;
+		height: 60px;
+		-webkit-animation: spin 2s linear infinite;
+		animation: spin 2s linear infinite;
+		visibility:hidden;
+	}
+
+	@-webkit-keyframes spin {
+	  0% { -webkit-transform: rotate(0deg); }
+	  100% { -webkit-transform: rotate(360deg); }
+	}
+
+	@keyframes spin {
+	  0% { transform: rotate(0deg); }
+	  100% { transform: rotate(360deg); }
 	}
 </style>

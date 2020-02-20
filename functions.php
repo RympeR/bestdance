@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 require_once('wp-bootstrap-navwalker.php');
 register_nav_menus( array(
   'primary' => __( 'Primary Menu', 'Menu' ),

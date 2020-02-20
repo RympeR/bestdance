@@ -95,7 +95,7 @@
 		    	// echo "record updated successfully";	
 			}
 
-			$to_email = 'georg.rashkov@gmail.com';
+			$to_email = 'bestdancefest@gmail.com';
 			$subject = 'DanceForm';
 			$message = "UPDATED: \n".
 					'Номинация '. $_POST["nomination"] . "\n" .
@@ -133,7 +133,7 @@
 		    	// echo "New record created successfully";
 			} 
 
-			$to_email = 'georg.rashkov@gmail.com';
+			$to_email = 'bestdancefest@gmail.com';
 			$subject = 'DanceForm';
 			$message = 
 					'Номинация '. $_POST["nomination"] . "\n" .
@@ -155,7 +155,7 @@
 					'Стиль танца '. $_POST["dance_style"];
 			
 			$headers = $_POST["email"];
-			//mail($to_email,$subject,$message,$headers);
+			mail($to_email,$subject,$message,$headers);
 		}
 
 		$conn->close();

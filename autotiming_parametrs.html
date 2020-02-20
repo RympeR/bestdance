@@ -29,50 +29,51 @@
 		}
 		
 		function format_data(data) {
-			var script_url = "https://script.google.com/macros/s/AKfycbw2lVMqLAAwhxc9GdhFqX7iTsKbd7qHLjrCgEzDh4RlEXuTlhFB/exec";
-			var symb = "&";
-			var url = script_url + "?callback=ctrlq" + symb + "action=delete";
-			var request = jQuery.ajax({
-				crossDomain: true,
-				url: url,
-				method: "GET",
-				dataType: "jsonp"
-			});
-			
-
-			var url = script_url + "?callback=ctrlq" + symb + "id_form=id_form" + symb + "duration=duration" + symb + "nomination=nomination" + symb + "team_name=team_name" + symb + "fio=fio" + symb + "dance_style=dance_style" + symb + "city=city" + symb + "music=music" + symb + "begining=begining"  + symb + "action=insert";
-			var request = jQuery.ajax({
-				crossDomain: true,
-				url: url,
-				method: "GET",
-				dataType: "jsonp"
-			});
-
-
-
-			var split_data = data.split(':::');
-			//alert(split_data);
-			for (let i = 0; i < split_data.length; i++) {
-				split_data[i] = split_data[i].split('::');
-
-				if (split_data[i].length == 2) {
-					url = "" + script_url + "?callback=ctrlq" + symb + "id_form=" + split_data[i][0] + "" + symb + "begining=" + split_data[i][1] + "" + symb + "action=insert_date";
-				}
-				else {
-					url = "" + script_url + "?callback=ctrlq" + symb + "id_form=" + split_data[i][1] + "" + symb + "duration=" + split_data[i][2] + "" + symb + "nomination=" + split_data[i][3] + "" + symb + "team_name=" + split_data[i][4] + "" + symb + "fio=" + split_data[i][6] + "" + symb + "dance_style=" + split_data[i][5] + "" + symb + "city=" + split_data[i][7] + "" + symb + "music=" + split_data[i][8] + "" + symb + "begining=" + split_data[i][9] + "" + symb + "action=insert";
-				}
-				// alert(url);
-				setTimeout(function(){
-					var request = jQuery.ajax({
-					async:false,
+				var script_url = "https://script.google.com/macros/s/AKfycbw2lVMqLAAwhxc9GdhFqX7iTsKbd7qHLjrCgEzDh4RlEXuTlhFB/exec";
+				var symb = "&";
+				var url = script_url + "?callback=ctrlq" + symb + "action=delete";
+				var request = jQuery.ajax({
 					crossDomain: true,
 					url: url,
 					method: "GET",
 					dataType: "jsonp"
 				});
-				}, 1000);
+				
+
+				var url = script_url + "?callback=ctrlq" + symb + "id_form=id_form" + symb + "duration=duration" + symb + "category=category" + symb +"nomination=nomination" + symb + "team_name=team_name" + symb + "fio=fio" + symb + "dance_style=dance_style" + symb + "city=city" + symb + "amount=amount" + symb + "music=music" + symb + "begining=begining"  + symb + "action=insert";
+				var request = jQuery.ajax({
+					crossDomain: true,
+					url: url,
+					method: "GET",
+					dataType: "jsonp"
+				});
+
+
+
+				var split_data = data.split(':::');
+				//alert(split_data);
+				for (let i = 0; i < split_data.length; i++) {
+					split_data[i] = split_data[i].split('::');
+
+					if (split_data[i].length == 2) {
+						url = "" + script_url + "?callback=ctrlq" + symb + "id_form=" + split_data[i][0] + "" + symb + "begining=" + split_data[i][1] + "" + symb + "action=insert_date";
+					}
+					else {
+						url = "" + script_url + "?callback=ctrlq" + symb + "id_form=" + split_data[i][1] + "" + symb + "duration=" + split_data[i][2] + "" + symb + "category=" + split_data[i][3] + "" + symb + "nomination=" + split_data[i][4] + "" + symb + "team_name=" + split_data[i][5] + "" + symb + "fio=" + split_data[i][6] + "" + symb + "dance_style=" + split_data[i][7] + "" + symb + "city=" + split_data[i][8] + "" + symb + "amount=" + split_data[i][9] + "" + symb + "music=" + split_data[i][10] + "" + symb + "begining=" + split_data[i][11] + "" + symb + "action=insert";
+					} 
+					// alert(url);
+				
+						var request = jQuery.ajax({
+						async:false,
+						crossDomain: true,
+						url: url,
+						method: "GET",
+						dataType: "jsonp"
+					});
+					
 				
 			}
+
 		}
 
 	</script>

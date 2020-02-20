@@ -1,9 +1,43 @@
 	<?php
-		
-		error_reporting(0);
+		function get_max_id_incr(){
+			$servername = "bestda01.mysql.tools";
+			$username = "bestda01_db";
+			$password = "LuyjNXUD";
+			$dbname = "bestda01_db";
+			
+			$conn = new mysqli($servername, $username, $password, $dbname);
+			if ($conn->connect_error){
+				die("Connection error: ");
+			}
 
-		$upload_dir_photo = 'wp-content/themes/bestdancefest.com.ua/upload_files/photo_payment/';
-		$upload_dir_music = 'wp-content/themes/bestdancefest.com.ua/upload_files/music/';
+			$max_form = "SELECT MAX(id) as value FROM DATA_INPUT;";
+			$res_max = $conn->query($max_form);
+			$row = $res_max->fetch_assoc(); 
+
+			$url_addres = 'http://'.$_SERVER['HTTP_REFERER'].$_SERVER['REQUEST_URI'];
+
+			if(preg_match("/num_form=[0-9]+/", $url_addres, $array)){
+				$res=preg_match("/num_form=[0-9]+/", $url_addres, $array);
+				return $form_num = substr($array[0], 9);
+			}
+			else
+				return $row["value"]+1;
+		}
+
+		error_reporting(0);
+		$user_id = $_POST["id_user"];
+		try{
+			mkdir('wp-content/themes/bestdancefest.com.ua/upload_files/photo_payment/'.get_max_id_incr().'/');
+			mkdir('wp-content/themes/bestdancefest.com.ua/upload_files/music/'.get_max_id_incr().'/');
+			$upload_dir_photo = 'wp-content/themes/bestdancefest.com.ua/upload_files/photo_payment/'.get_max_id_incr().'/';
+			$upload_dir_music = 'wp-content/themes/bestdancefest.com.ua/upload_files/music/'.get_max_id_incr().'/';
+			
+		}
+		catch (Exception $e){
+			$upload_dir_photo = 'wp-content/themes/bestdancefest.com.ua/upload_files/photo_payment/'.get_max_id_incr().'/';
+			$upload_dir_music = 'wp-content/themes/bestdancefest.com.ua/upload_files/music/'.get_max_id_incr().'/';
+		}
+		
 		
 		$photo = $_FILES['photo_name']['name'];
 		$audio = $_FILES['file_name']['name'];
@@ -46,7 +80,7 @@
 		}
 		else echo "error";
 
-		$user_id = $_POST["id_user"];
+		
 		$servername = "bestda01.mysql.tools";
 		$username = "bestda01_db";
 		$password = "LuyjNXUD";
@@ -128,7 +162,7 @@
 				$_POST['email'].'"'.",".'"'.$_POST['facebook'].'"'.",".'"'.$_POST['city'].'"'.",".'"'.$_POST['number_name'].'"'.",".'"'.
 				$_POST['team_name'].'"'.",".'"00:'.$_POST['duration'].'"'.",".$_POST['amount'].",".$_POST['max_age'].",".
 				$_POST['min_age'] .",".'"'."NULL" .'"'.",".'"'.$audio.'"'.",".'"'.$_POST['dance_style'].'"'.");";
-			echo $sql_input;
+			// echo $sql_input;
 			if ($conn->query($sql_input) === TRUE) {
 		    	// echo "New record created successfully";
 			} 
@@ -153,10 +187,11 @@
 					'Минимальный возраст '. $_POST["min_age"] . "\n" .
 					'Путь/имя трека '. $audio . "\n" .
 					'Стиль танца '. $_POST["dance_style"];
-			
+		}	
 			$headers = $_POST["email"];
+			// echo $message;
 			mail($to_email,$subject,$message,$headers);
-		}
+		
 
 		$conn->close();
 	 ?> 

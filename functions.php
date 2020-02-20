@@ -79,22 +79,33 @@ function generate_links(){
 	if ($conn->connect_error){
 		die("Connection error: ");
 	}
-	$sql = "SELECT id,user_id FROM DATA_INPUT
+		
+		if(!$conn->set_charset("utf8")){
+			echo "ошибка кодировки";
+		}
+		if ($conn->connect_error){
+			die("Connection error: ");
+		}
+
+
+	$sql = "SELECT id,user_id,number_name FROM DATA_INPUT
 				WHERE user_id =  $user_id";
 
 	$result = $conn->query($sql);
 
 	echo '<div id="lk-content" class="rcl-content"><div id="tab-zakazy_25" class="zakazy_25_block recall_content_block active"><div id="subtab-subtab-1" class="rcl-subtab-content">';
-
+	echo '<h1 style="margin: 35px 0 0 10px;font-size: 26pt;color: #fafafa;text-align: center;">Ваши заявки</h1>';
 	if (custom_shortcode() == "1"){
-		echo "<a class='user-order-link' style='color:#000;' href='http://www.bestdancefest.com.ua/form_timing'>Сформировать тайминг</a><br>";
+		echo "<br><p><a class='user-order-link' style='color:#000;' href='http://www.bestdancefest.com.ua/form_timing'>Сформировать тайминг</a><br></p>";
 	}
+
 	while($row = $result->fetch_assoc()) {
 
 		//echo "num form:".$row["id"]."<br>";
-		echo "<a class='user-order-link' style='color:#000;' href='http://www.bestdancefest.com.ua/form?num_form=".$row["id"]."'/>Заявка ".$row["id"].'</a>';
+		echo "<a class='user-order-link' style='color:#000;filter: drop-shadow(2px 2px 2px #222);-webkit-filter: drop-shadow(2px 2px 2px #222);' href='http://www.bestdancefest.com.ua/form?num_form=".$row["id"]."'/>".$row["number_name"].'</a>';
 		echo "<br>";
 	}
+	// echo "<button onclick=[logout]>Выйти</button>";
 	echo "</div></div></div>";
 	//echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 
@@ -122,7 +133,7 @@ function get_max_id(){
 	if(preg_match("/num_form=[0-9]+/", $url_addres, $array)){
 		$res=preg_match("/num_form=[0-9]+/", $url_addres, $array);
 		return $form_num = substr($array[0], 9);
-		 }
+	}
 	else
 		return $row["value"]+1;
 
@@ -137,5 +148,11 @@ function get_audio_name(){
 }
 
 add_shortcode('get_audio','get_audio_name');
+
+function login_out(){
+	wp_loginout("/");
+}
+
+add_shortcode('logout','login_out');
 ?>
 

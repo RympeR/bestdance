@@ -1,8 +1,6 @@
-id,duration,nomination,team_name,dance_style,fio,city,audio_name,begining
-"28 March",,,,,,,,02:02:00
-1,00:02:03,"Современная хореография",dewf,fergthyju,drthy,Одесса,"Markul ft. Oxxxymiron – Fata Morgana.mp3",=SUM(B3;I2)
-3,00:01:03,"Эстрадный танец",нету,fergthyju,drthy,Одесса,21_Pilots_-_Ms._Believer.mp3,=SUM(B4;I3)
-"29 March",,,,,,,,02:02:00
-2,00:02:03,"Show Girls",нету,Contemporary,fds,Одесса,2_Chainz_feat._Wiz_Khalifa_-_We_Own_It.mp3,=SUM(B6;I5)
-5,00:01:02,"Show Girls",нету,"r4 ;  ; ",drthy,Одесса,ACDC_-_Highway_To_Hell.mp3,=SUM(B7;I6)
-4,00:04:03,"Show Girls",нету,fewrt,rwfrge,Одесса,Bring_Me_The_Horizon_-_Deathbeds.mp3,=SUM(B8;I7)
+Номер,Длительность,Категория,Номинация,"Название команды","Стиль танца",ФИО,Город,"Кол-во участников",Музыка,Начало
+"28 March",,,,,,,,,,02:02:00
+5,00:02:00,Solo,"Современная хореография","Сова Анастасия",Contemporary,"Брагида Виталина",Чернигов,1,"Mad world.mp3",=SUM(B3;I2)
+3,00:01:56,Solo,"Эстрадный танец","Мельничук Доминика","Спортивный танец","Брагида Виталина",Чернигов,1,"Мельничук Доминика_Soul dance_с точки.mp3",=SUM(B4;I3)
+4,00:02:00,Solo,"Современная хореография","Мельничук Доминика","Dance show","Брагида Виталина",Чернигов,1,"Dark paradice.mp3",=SUM(B5;I4)
+"29 March",,,,,,,,,,02:02:00

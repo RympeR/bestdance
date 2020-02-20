@@ -118,6 +118,15 @@
 			if (this.files[0]) // если выбрали файл
 				document.getElementById("music_name_info_").value = this.files[0].name;
 			};
+			document.getElementById('amount').addEventListener('mousewheel', function(e){
+    			e.preventDefault();
+			});
+			document.getElementById('min_age').addEventListener('mousewheel', function(e){
+   				e.preventDefault();
+			});
+			document.getElementById('max_age').addEventListener('mousewheel', function(e){
+   				e.preventDefault();
+			});
 		}
 		function send_data_form() {
 			
@@ -127,6 +136,9 @@
 
 
   			var duration = $("#duration").val(),
+  				category = $("#category").val(),
+  				nomination = $("#nomination_selectA").val(),
+  				amount = $("#amount").val(),
 				team_name = $("#team_name").val(),
 				fio = $("#fio").val(),
 				dance_style = $("#dance_style").val(),
@@ -138,11 +150,11 @@
 			if (url != "http://www.bestdancefest.com.ua/form/") {
 
 
-				var url = script_url+"?callback=ctrlq&id_form="+id_form+"&duration="+duration+"&team_name="+team_name+"&fio="+fio+"&dance_style="+dance_style+"&city="+city+"&music="+music+"&action=update";
+				var url = script_url+"?callback=ctrlq&id_form="+id_form+"&duration="+duration+"&nomination="+nomination+"&category="+category+"&team_name="+team_name+"&fio="+fio+"&dance_style="+dance_style+"&city="+city+"&amount="+amount+"&music="+music+"&action=update";
 
 			}
 			else{
-				var url = script_url+"?callback=ctrlq&id_form="+get_id_form+"&duration="+duration+"&team_name="+team_name+"&fio="+fio+"&dance_style="+dance_style+"&city="+city+"&music="+music+"&action=insert";
+				var url = script_url+"?callback=ctrlq&id_form="+get_id_form+"&duration="+duration+"&nomination="+nomination+"&category="+category+"&team_name="+team_name+"&fio="+fio+"&dance_style="+dance_style+"&city="+city+"&amount="+amount+"&music="+music+"&action=insert";
 			}
 				
 
@@ -170,8 +182,12 @@
 				type: "POST",
 				data: fd,
 				success: function (data) {
-					//alert(data);
-					window.location = "/";
+					// alert(data);
+					alert("Ваша заявка успешно добавлена");
+					setTimeout(function(){
+						window.location = "/account/";	
+					},1000)
+					
 				},
 				processData: false,  // tell jQuery not to process the data
 				contentType: false   // tell jQuery not to set contentType
@@ -344,5 +360,13 @@
 	@keyframes spin {
 	  0% { transform: rotate(0deg); }
 	  100% { transform: rotate(360deg); }
+	}
+	input, label, button, select {
+		Width:95%
+	}
+	@media or screen (max-width:456)
+	{
+  		h2
+		{ Width: 95%}
 	}
 </style>

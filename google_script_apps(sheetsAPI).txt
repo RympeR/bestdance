@@ -1,0 +1,386 @@
+//tickets amount
+function doGet(e){
+  
+  var op = e.parameter.action;
+
+  var ss=SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1vRcFNbxBqQn5faBMxyUlCrQVJ-thCkETJl4rUueUCrU/edit#gid=1767127324");
+  var sheet = ss.getSheetByName("Tickets");
+
+  
+  if(op=="insert")
+    return insert_value(e,sheet);
+  
+}
+
+function insert_value(request,sheet){
+ 
+ 
+  var id = request.parameter.id;
+  var amount = request.parameter.ticket_amount; 
+  var fio = request.parameter.fio;
+  var email = request.parameter.email;
+
+  var flag=0;
+  var lr= sheet.getLastRow();
+  for(var i=1;i<=lr;i++){
+    var rid = sheet.getRange(i, 1).getValue();
+    var rfio = sheet.getRange(i, 2).getValue();
+    var remail = sheet.getRange(i, 3).getValue();
+    var ramount = sheet.getRange(i, 4).getValue();
+    
+    if(rfio == fio && remail == email){
+      sheet.getRange(i,1).setValue(id);
+      sheet.getRange(i,2).setValue(fio);
+      sheet.getRange(i,3).setValue(email);
+      sheet.getRange(i,4).setValue(amount);
+      var result="value updated successfully";
+      flag=1;
+    }
+  }
+  if(flag==0)
+  var rowData = sheet.appendRow([id,fio,email,amount]);  
+ 
+  
+  
+  var result="id not found";
+  
+   result = JSON.stringify({
+    "result": result
+  });  
+    
+  return ContentService
+  .createTextOutput(request.parameter.callback + "(" + result + ")")
+  .setMimeType(ContentService.MimeType.JAVASCRIPT);   
+  }
+
+  --------------------------------------------
+  //forms
+  function doGet(e){
+  
+  var op = e.parameter.action;
+
+  var ss=SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1vRcFNbxBqQn5faBMxyUlCrQVJ-thCkETJl4rUueUCrU/edit#gid=0");
+  var sheet = ss.getSheetByName("Sheet1");
+
+  
+  if(op=="insert")
+    return insert_value(e,sheet);
+  
+  //Make sure you are sending proper parameters 
+//  if(op=="read")
+//    return read_value(e,ss);
+  
+  if(op=="update")
+    return update_value(e,sheet);
+  
+  if(op=="delete")
+    return delete_value(e,sheet);
+  
+}
+
+//Recieve parameter and pass it to function to handle
+
+ 
+
+
+function insert_value(request,sheet){
+ 
+ 
+//  var id = request.parameter.id;
+  var amount = request.parameter.amount;
+  var category = request.parameter.category;
+  var nomination = request.parameter.nomination;
+  var duration = request.parameter.duration;
+  var team_name = request.parameter.team_name;
+  var fio = request.parameter.fio;
+  var dance_style = request.parameter.dance_style;
+  var city = request.parameter.city;
+  var id_form = request.parameter.id_form;
+  var music = request.parameter.music;
+  
+//  var flag=1;
+//  var lr= sheet.getLastRow();
+//  for(var i=1;i<=lr;i++){
+//    var id1 = sheet.getRange(i, 1).getValue();
+//    if(id1==id){
+//      flag=0;
+//    } 
+//  }
+//  
+//  if(flag==1){
+    var rowData = sheet.appendRow([id_form,duration,category, nomination, team_name,dance_style,fio,city, amount, music]);  
+//  }
+     result = JSON.stringify({
+    "result": result
+  });  
+    
+  return ContentService
+  .createTextOutput(request.parameter.callback + "(" + result + ")")
+  .setMimeType(ContentService.MimeType.JAVASCRIPT);   
+  }
+  
+  
+
+
+
+//function read_value(request,ss){
+//  
+// 
+//  var output  = ContentService.createTextOutput(),
+//      data    = {};
+//  //Note : here sheet is sheet name , don't get confuse with other operation 
+//      var sheet="sheet1";
+//
+//  data.records = readData_(ss, sheet);
+//  
+//  var callback = request.parameters.callback;
+//  
+//  if (callback === undefined) {
+//    output.setContent(JSON.stringify(data));
+//  } else {
+//    output.setContent(callback + "(" + JSON.stringify(data) + ")");
+//  }
+//  output.setMimeType(ContentService.MimeType.JAVASCRIPT);
+//  
+//  return output;
+//}
+
+
+function readData_(ss, sheetname, properties) {
+
+  if (typeof properties == "undefined") {
+    properties = getHeaderRow_(ss, sheetname);
+    properties = properties.map(function(p) { return p.replace(/\s+/g, '_'); });
+  }
+  
+  var rows = getDataRows_(ss, sheetname),
+      data = [];
+
+  for (var r = 0, l = rows.length; r < l; r++) {
+    var row     = rows[r],
+        record  = {};
+
+    for (var p in properties) {
+      record[properties[p]] = row[p];
+    }
+    
+    data.push(record);
+
+  }
+  return data;
+}
+
+
+
+function getDataRows_(ss, sheetname) {
+  var sh = ss.getSheetByName(sheetname);
+
+  return sh.getRange(2, 1, sh.getLastRow() - 1, sh.getLastColumn()).getValues();
+}
+
+
+function getHeaderRow_(ss, sheetname) {
+  var sh = ss.getSheetByName(sheetname);
+
+  return sh.getRange(1, 1, 1, sh.getLastColumn()).getValues()[0];  
+} 
+  
+
+//update function
+
+function update_value(request,sheet){
+
+  var output  = ContentService.createTextOutput();
+  var duration = request.parameter.duration;
+  var team_name = request.parameter.team_name;
+  var fio = request.parameter.fio;
+  var dance_style = request.parameter.dance_style;
+  var city = request.parameter.city;
+  var id_form = request.parameter.id_form;
+  var song_name = request.parameter.music;
+  
+  var flag=0;
+  var lr= sheet.getLastRow();
+  for(var i=1;i<=lr;i++){
+    var rid = sheet.getRange(i, 1).getValue();
+    if(rid==id_form){
+      sheet.getRange(i,2).setValue(duration);
+      sheet.getRange(i,3).setValue(team_name);
+      sheet.getRange(i,4).setValue(dance_style);
+      sheet.getRange(i,5).setValue(fio);
+      sheet.getRange(i,6).setValue(city);           
+      sheet.getRange(i,7).setValue(song_name);
+      var result="value updated successfully";
+      flag=1;
+    }
+}
+  if(flag==0)
+    var result="id not found";
+  
+   result = JSON.stringify({
+    "result": result
+  });  
+    
+  return ContentService
+  .createTextOutput(request.parameter.callback + "(" + result + ")")
+  .setMimeType(ContentService.MimeType.JAVASCRIPT);   
+  
+  
+}
+
+
+  
+
+function delete_value(request,sheet){
+  
+  var output  = ContentService.createTextOutput();
+  var id = request.parameter.id_form;
+  var fio = request.parameter.fio;
+  var amount = request.parameter.amount;
+  var city = request.parameter.city;
+  var dance_style = request.parameter.dance_style;
+  var team_name = request.parameter.team_name;
+  var category = request.parameter.category;
+  var nomination = request.parameter.nomination;
+  
+  var flag=0;
+
+  
+  
+  var lr= sheet.getLastRow();
+  for(var i=1;i<=lr;i++){
+    var rid = sheet.getRange(i, 1).getValue();
+    var rfio = sheet.getRange(i, 7).getValue();
+    var ramount = sheet.getRange(i, 9).getValue();
+    var rdance_style = sheet.getRange(i, 6).getValue();
+    var rteam_name = sheet.getRange(i, 5).getValue();
+    var rcategory = sheet.getRange(i, 3).getValue();
+    var rnomination = sheet.getRange(i, 4).getValue();
+    var rcity = sheet.getRange(i, 8).getValue();
+    
+    if(rfio == fio && ramount == amount && rdance_style == dance_style
+      && rteam_name == team_name && rcategory == category && rnomination == nomination 
+      && rcity == city){
+      sheet.deleteRow(i);
+      var result="value deleted successfully";
+      flag=1;
+    }
+    
+  }
+
+  if(flag==0)
+    var result="id not found";
+  
+  
+ 
+   result = JSON.stringify({
+    "result": result
+  });  
+    
+  return ContentService
+  .createTextOutput(request.parameter.callback + "(" + result + ")")
+  .setMimeType(ContentService.MimeType.JAVASCRIPT);   
+  
+
+
+}
+-------------------------------------------------
+//autotiming
+function doGet(e){
+  
+  var op = e.parameter.action;
+  var ss=SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1vRcFNbxBqQn5faBMxyUlCrQVJ-thCkETJl4rUueUCrU/edit#gid=1396409656");
+  var sheet = ss.getSheetByName("Sheet2");
+
+  
+  if(op=="insert")
+    return insert_value(e,sheet);
+  if(op=="insert_date")
+    return insert_date_value(e,sheet);
+  if(op=="insert_rest")
+    return insert_rest_value(e,sheet);
+  if(op=="delete")
+    return delete_value(e,sheet);
+  
+}
+
+//Recieve parameter and pass it to function to handle
+
+ 
+function insert_date_value(request,sheet){
+  var id = request.parameter.id_form;
+  var begining = request.parameter.begining;
+  var lr= sheet.getLastRow();
+  var rowData = sheet.appendRow([id,"","","","","","","","","",begining]);  
+  var result="Insertion successful";
+  
+     result = JSON.stringify({
+    "result": result
+  });  
+    
+  return ContentService
+  .createTextOutput(request.parameter.callback + "(" + result + ")")
+  .setMimeType(ContentService.MimeType.JAVASCRIPT);  
+}
+
+function insert_rest_value(request,sheet){
+  var id = request.parameter.id_form;  
+  var duration = request.parameter.duration;  
+  var begining = request.parameter.begining;
+  var lr= sheet.getLastRow();
+  var rowData = sheet.appendRow(["","","","","","","","","", duration, begining]);  
+  var result="Insertion successful";
+  
+     result = JSON.stringify({
+    "result": result
+  });  
+    
+  return ContentService
+  .createTextOutput(request.parameter.callback + "(" + result + ")")
+  .setMimeType(ContentService.MimeType.JAVASCRIPT);   
+}
+
+function insert_value(request,sheet){
+  
+  var amount = request.parameter.amount;
+  var category = request.parameter.category;
+  var id = request.parameter.id_form;  
+  var duration = request.parameter.duration;
+  var nomination = request.parameter.nomination;
+  var team_name = request.parameter.team_name;
+  var fio = request.parameter.fio;  
+  var dance_style = request.parameter.dance_style;  
+  var city = request.parameter.city;  
+  var music = request.parameter.music;  
+  var begining = request.parameter.begining;  
+  var lr= sheet.getLastRow();
+  var rowData = sheet.appendRow([id, duration, category, nomination, team_name, fio, dance_style, city,amount, music, begining]);  
+  var result="Insertion successful";
+  
+     result = JSON.stringify({
+    "result": result
+  });  
+    
+  return ContentService
+  .createTextOutput(request.parameter.callback + "(" + result + ")")
+  .setMimeType(ContentService.MimeType.JAVASCRIPT);   
+  }
+  
+
+function delete_value(request,sheet){
+  
+  var output  = ContentService.createTextOutput();
+  sheet.clear();
+  var lr= sheet.getLastRow();
+   var result="Insertion successful";
+ 
+   result = JSON.stringify({
+    "result": result
+  });  
+    
+  return ContentService
+  .createTextOutput(request.parameter.callback + "(" + result + ")")
+  .setMimeType(ContentService.MimeType.JAVASCRIPT);   
+  
+
+}

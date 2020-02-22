@@ -1,0 +1,93 @@
+
+<div style="text-align: center;">
+	<form onsubmit="return false" name="form" id="form">
+		<p><strong>Колличество билетов: </strong><br>
+			<input type="hidden" id = "user_id" value=[get-login]>
+			
+			<input id="ticket_amount" style="color:#000;margin-top:0.5vw;" required name="begining" type="number"
+				placeholder="кол-во билетов"></p> 
+		</p>
+		<input class="submitButton" type="submit" onclick="send_data_form();">
+	</form>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<div id="preview"></div>
+	<script>
+		function send_data_form() {
+			var fd = new FormData(document.getElementById("form"));
+			var user_id = $("#user_id").val();
+			var ticket_amount = $("#ticket_amount").val();
+			$.ajax({
+				url: "/amount_tickets.php",
+				type: "POST",
+				data: {'user_id':user_id,'ticket_amount': ticket_amount},
+				success: function (data) {
+					//alert(data);
+					format_data(data);
+					window.location = "/account/";
+				},
+				dataType: "text"
+			});
+
+		}
+		
+		function format_data(data) {
+				var script_url = "https://script.google.com/macros/s/AKfycbx5ZJJTFGdWrUWX-OulGOf3plEz0qLT7KALe2AI3VS-Dhue4v0/exec";
+				var user_id = $("#user_id").val();
+				var ticket_amount = $("#ticket_amount").val();
+				var split_data = data.split('::');
+				var symb = "&";
+				var url = script_url + "?callback=ctrlq" + symb + "id="+ user_id + symb + "ticket_amount=" + ticket_amount + symb + "email=" + split_data[0] + symb +"fio=" + split_data[1] + symb + "action=insert";
+				//alert(url);
+				var request = jQuery.ajax({
+					crossDomain: true,
+					url: url,
+					method: "GET",
+					dataType: "jsonp"
+				});
+
+
+		}
+
+	</script>
+</div>
+<style>
+	input,
+	button,
+	select,
+	textarea {
+		width: 400px;
+		text-align: center;
+		padding: 10px;
+	}
+
+	.submitButton {
+		background-color: #30c323;
+		color: #fff;
+		font-weight: 600;
+		font-family: Roboto, Helvetica, sans-serif;
+		border: 0;
+		padding: 20px;
+	}
+
+	.submitButton:hover {
+		background-color: #5ce750;
+	}
+
+	.coloredHeader {
+
+		display: flex;
+		margin: 30px auto;
+		width: 600px;
+		border: 1px solid;
+		border-radius: 42px;
+		padding: 20px;
+		padding-top: 20px;
+		padding-right: 20px;
+		padding-bottom: 20px;
+		padding-left: 20px;
+		text-align: center;
+		align-items: center;
+		justify-content: center;
+		cursor: default;
+	}
+</style>

@@ -41,3 +41,12 @@ BEGIN
  
 END $$
 
+
+drop table if EXISTS TICKET_AMOUNT;
+CREATE TABLE TICKET_AMOUNT(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    fio VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    amount INT NOT NULL
+    );

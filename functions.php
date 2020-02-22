@@ -105,6 +105,8 @@ function generate_links(){
 		echo "<a class='user-order-link' style='color:#000;filter: drop-shadow(2px 2px 2px #222);-webkit-filter: drop-shadow(2px 2px 2px #222);' href='http://www.bestdancefest.com.ua/form?num_form=".$row["id"]."'/>".$row["number_name"].'</a>';
 		echo "<br>";
 	}
+
+	echo '<a class="user-order-link" href="http://www.bestdancefest.com.ua/wp-login.php?action=logout&amp;redirect_to=http%3A%2F%2Fwww.bestdancefest.com.ua&amp;_wpnonce=cd7dd09db6" class="recall-button "><i class="rcli fa-external-link"></i><span>Выход</span></a>';
 	// echo "<button onclick=[logout]>Выйти</button>";
 	echo "</div></div></div>";
 	//echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
@@ -112,6 +114,43 @@ function generate_links(){
 }
 add_shortcode('gen_links','generate_links');
 
+function get_tickets_amount(){
+	$user_id = get_current_user_id();
+	$user_info = get_userdata(get_current_user_id());
+
+	$servername = "bestda01.mysql.tools";
+	$username = "bestda01_db";
+	$password = "LuyjNXUD";
+	$dbname = "bestda01_db";
+	
+	$conn = new mysqli($servername, $username, $password, $dbname);
+	if ($conn->connect_error){
+		die("Connection error: ");
+	}
+		
+		if(!$conn->set_charset("utf8")){
+			echo "ошибка кодировки";
+		}
+		if ($conn->connect_error){
+			die("Connection error: ");
+		}
+
+
+	$sql = "SELECT amount FROM TICKET_AMOUNT
+				WHERE user_id =  $user_id";
+	try{
+		$result = $conn->query($sql);
+		$row = $result->fetch_assoc();
+
+		return $row["amount"];	
+	}
+	catch (Exception $e)
+	{
+		return 0;
+	}
+	
+}
+add_shortcode('get_amount','get_tickets_amount');
 
 function get_max_id(){
 	$servername = "bestda01.mysql.tools";

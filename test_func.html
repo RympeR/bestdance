@@ -1,5 +1,6 @@
 <div style="text-align: center;">
 	<div id="response"></div>
+	<a href="http://www.bestdancefest.com.ua/account/"><strong><h3>В личный кабинет</h3></strong></a>
 	<form onsubmit="return false"  name="client_form"  id="form" enctype="multipart/form-data">
 		<input id="1" name="id_user" type="hidden" value=[get-login]>
 		<input id="music_name_info_" name="music_name_info_" type="hidden">
@@ -83,7 +84,7 @@
 
 		<p><strong>Аудио файл: ( mp3 или wav, до 24Мб ) </strong><br>
 			<input id="file_name" required type="file" name="file_name" placeholder="Загрузите аудио файл" accept="audio/*" 
-				style="margin-left: 42vw;margin-top:0.5vw;"></p>
+				style="margin-left: 50%;margin-top: 0.5vw;display: flex;transform: translate(-50%);"></p>
 		<span style="font-weight: : bold; text-decoration:underline; " id="old_file"></span>
 		<h2 class="coloredHeader">Контактная информация</h2>
 		<p><strong>ФИО: </strong><br>
@@ -105,15 +106,21 @@
 
 		<p><strong style="color: #e6af0e;">Фото чека с оплатой:( png | jpg | jpeg, до 5Мб ) </strong><br>
 			<input id="photo_name" accept="image/*" type="file" name="photo_name" placeholder=""
-				style="margin-left: 42vw;margin-top:0.5vw;"></p>
+				style="margin-left: 50%;margin-top: 0.5vw;display: flex;transform: translate(-50%);"></p>
 		<div id="loader"></div>
-
+		<button class="deleteButton" style = "display:none;" onclick="delete_form();" id= "delete">Удалить заявку</button>
 		<p id="re"></p>
 		<input class="submitButton" type="submit" onclick="send_data_form();">
 	</form>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script>
 		window.onload = function(){
+			var url = window.location;
+
+
+			if ( url != "http://www.bestdancefest.com.ua/form/"){
+				document.getElementById("delete").style.display = 'inline';
+			}
 			document.getElementsByTagName('input')[10].onchange = function() {
 			if (this.files[0]) // если выбрали файл
 				document.getElementById("music_name_info_").value = this.files[0].name;
@@ -127,6 +134,61 @@
 			document.getElementById('max_age').addEventListener('mousewheel', function(e){
    				e.preventDefault();
 			});
+		}
+		function delete_form(){
+			var script_url = "https://script.google.com/macros/s/AKfycbwWYl9o0O67FYg1H6_OK2G6svL5Q8oQpSdsKMCvsF5Ah4_BLnI/exec";
+
+			var url = window.location,
+				reg = new RegExp("num_form=[0-9]+"),
+				res_reg = reg.exec(url),
+				id_form = res_reg[0].substring(9),
+  				category = $("#category").val(),
+  				nomination = $("#nomination_selectA").val(),
+  				amount = $("#amount").val(),
+				team_name = $("#team_name").val(),
+				fio = $("#fio").val(),
+				dance_style = $("#dance_style").val(),
+				city = $("#city").val();
+
+			var send_data_id = $("#get_max_id_incr").val();
+			send_data_id = id_form;
+			var choice = confirm("Вы уверены?");
+			if (choice){
+				url = script_url+"?callback=ctrlq&id_form="+id_form+"&fio="+fio+"&category="+category+"&nomination="+nomination+"&team_name="+team_name+
+				"&dance_style="+dance_style+"&city="+city+"&amount="+amount+"&action=delete";
+				var fd = new FormData(document.getElementById("form"));
+				var request = jQuery.ajax({
+				      crossDomain: true,
+				      url: url ,
+				      method: "GET",
+				      dataType: "jsonp"
+				    });
+
+
+				$.ajax({
+					type: "POST",
+					url: "/delete_form.php",
+					data: { 'id': id_form },
+					success: function (phpData) {
+						alert("Ваша заявка успешно удалена");
+						setTimeout(function(){
+							window.location = "/account/";	
+						},1000);
+					},
+					complete: function () {
+					},
+					dataType: "text"
+				});
+
+				
+
+			}
+			else 
+				{}
+
+
+
+
 		}
 		function send_data_form() {
 			
@@ -145,7 +207,17 @@
 				city = $("#city").val(),
 				music = $("#music_name_info_").val(),
 				get_id_form = document.getElementById("get_max_id_incr").value,
+				email = $("#email").val(),
+				facebook = $("#email").val(),
+				tel_number = $("#number").val(),
+				min_age = $("#min_age").val(),
+				max_age = $("#max_age").val(),
+				number_name = $("#number_name").val(),
+				group_age = $("#group_age").val(),
+				skill_level = $("#skill_level").val(),
+				facebook = $("#facebook").val(),
 				url = window.location;
+
 
 			if (url != "http://www.bestdancefest.com.ua/form/") {
 
@@ -160,38 +232,47 @@
 
 				//alert(url);
 		
-			$("#re").css("visibility","hidden");
-	 		document.getElementById("loader").style.visibility = "visible";
-			$('#mySpinner').addClass('spinner');
+			if(duration != "--:--" && category != "Выберите категорию" && nomination != "Выберите номинацию" 
+				&& amount!="" && team_name != "" && fio != "" && city != "" && dance_style != "" 
+				&& email != "" && facebook !="" && tel_number != "" && min_age != "" && max_age != "" 
+				&& number_name != "" && facebook != "" && group_age != "Выберите возраст" && skill_level !="Выберите уровень"){
+				$("#re").css("visibility","hidden");
+		 		document.getElementById("loader").style.visibility = "visible";
+				$('#mySpinner').addClass('spinner');
 
-			var request = jQuery.ajax({
-			      crossDomain: true,
-			      url: url ,
-			      method: "GET",
-			      dataType: "jsonp"
-			    });
+				var request = jQuery.ajax({
+				      crossDomain: true,
+				      url: url ,
+				      method: "GET",
+				      dataType: "jsonp"
+				    });
 
-			
-			
-			var fd = new FormData(document.getElementById("form"));
-			fd.append('file_name', $('#file_name')[0].files[0]);
-			fd.append('photo_name', $('#photo_name')[0].files[0]);
+				
+				
+				var fd = new FormData(document.getElementById("form"));
+				fd.append('file_name', $('#file_name')[0].files[0]);
+				fd.append('photo_name', $('#photo_name')[0].files[0]);
 
-			$.ajax({
-				url: "/my.php",
-				type: "POST",
-				data: fd,
-				success: function (data) {
-					// alert(data);
-					alert("Ваша заявка успешно добавлена");
-					setTimeout(function(){
-						window.location = "/account/";	
-					},1000)
-					
-				},
-				processData: false,  // tell jQuery not to process the data
-				contentType: false   // tell jQuery not to set contentType
-			});
+				$.ajax({
+					url: "/my.php",
+					type: "POST",
+					data: fd,
+					success: function (data) {
+						// alert(data);
+						alert("Ваша заявка успешно добавлена");
+						setTimeout(function(){
+							window.location = "/account/";	
+						},1000)
+						
+					},
+					processData: false,  // tell jQuery not to process the data
+					contentType: false   // tell jQuery not to set contentType
+				});
+
+			}
+			else {
+				alert("Введите все поля");
+			}
 		}
 		function format_data(data) {
 		
@@ -298,16 +379,8 @@
 </div>
 
 <style>
-	input,
-	button,
-	select,
-	textarea {
-		width: 400px;
-		text-align: center;
-		padding: 10px;
-	}
 
-	.submitButton {
+	.submitButton,.deleteButton {
 		background-color: #30c323;
 		color: #fff;
 		font-weight: 600;
@@ -316,27 +389,11 @@
 		padding: 20px;
 	}
 
-	.submitButton:hover {
+	.submitButton:hover,.deleteButton:hover {
 		background-color: #5ce750;
 	}
 
-	.coloredHeader {
 
-		display: flex;
-		margin: 30px auto;
-		width: 600px;
-		border: 1px solid;
-		border-radius: 42px;
-		padding: 20px;
-		padding-top: 20px;
-		padding-right: 20px;
-		padding-bottom: 20px;
-		padding-left: 20px;
-		text-align: center;
-		align-items: center;
-		justify-content: center;
-		cursor: default;
-	}
 
 	#loader {
 		align-items: center;
@@ -361,12 +418,6 @@
 	  0% { transform: rotate(0deg); }
 	  100% { transform: rotate(360deg); }
 	}
-	input, label, button, select {
-		Width:95%
-	}
-	@media or screen (max-width:456)
-	{
-  		h2
-		{ Width: 95%}
-	}
+
+
 </style>

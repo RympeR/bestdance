@@ -90,23 +90,38 @@ function generate_links(){
 
 	$sql = "SELECT id,user_id,number_name FROM DATA_INPUT
 				WHERE user_id =  $user_id";
+	$sql1 = "SELECT id,user_id,number_name FROM DATA_INPUT
+				WHERE user_id !=  $user_id";
 
+	$result1 = $conn->query($sql1);
 	$result = $conn->query($sql);
 
 	echo '<div id="lk-content" class="rcl-content"><div id="tab-zakazy_25" class="zakazy_25_block recall_content_block active"><div id="subtab-subtab-1" class="rcl-subtab-content">';
-	echo '<h1 style="margin: 35px 0 0 10px;font-size: 26pt;color: #fafafa;text-align: center;">Ваши заявки</h1>';
-	if (custom_shortcode() == "1"){
-		echo "<br><p><a class='user-order-link' style='color:#000;' href='http://www.bestdancefest.com.ua/form_timing'>Сформировать тайминг</a><br></p>";
-	}
+	
 
+	echo "<br><p><a class='user-order-link btnMy' style='color:#000;' href='http://www.bestdancefest.com.ua/form_timing'>Сформировать тайминг</a><br></p>";
+	if (custom_shortcode() == "1")
+		echo '<a href ="http://www.bestdancefest.com.ua/delete/" class="btnMy">Удалить заявку</a>';
+	// if (false){
+
+	// 	echo '<h1 style="margin: 10px 0 10px 10px;font-size: 26pt;color: #fafafa;text-align: center;">Все заявки</h1>';
+	// 	while($row1 = $result1->fetch_assoc()) {
+
+	// 	//echo "num form:".$row["id"]."<br>";
+	// 		echo "<a class='user-order-link btnMy' style='color:#000;filter: drop-shadow(2px 2px 2px #222);-webkit-filter: drop-shadow(2px 2px 2px #222);' href='http://www.bestdancefest.com.ua/form?num_form=".$row1["id"]."'/>".$row1["id"].'_'.$row1["number_name"].'</a>';
+	// 		echo "<br>";
+	// 	}	
+	// }
+
+	echo '<h1 style="margin: 10px 0 10px 10px;font-size: 26pt;color: #fafafa;text-align: center;">Ваши заявки</h1>';
 	while($row = $result->fetch_assoc()) {
 
 		//echo "num form:".$row["id"]."<br>";
-		echo "<a class='user-order-link' style='color:#000;filter: drop-shadow(2px 2px 2px #222);-webkit-filter: drop-shadow(2px 2px 2px #222);' href='http://www.bestdancefest.com.ua/form?num_form=".$row["id"]."'/>".$row["number_name"].'</a>';
+		echo "<a class='user-order-link btnMy' style='color:#000;filter: drop-shadow(2px 2px 2px #222);-webkit-filter: drop-shadow(2px 2px 2px #222);' href='http://www.bestdancefest.com.ua/form?num_form=".$row["id"]."'/>".$row["id"].'_'.$row["number_name"].'</a>';
 		echo "<br>";
 	}
 
-	echo '<a class="user-order-link" href="http://www.bestdancefest.com.ua/wp-login.php?action=logout&amp;redirect_to=http%3A%2F%2Fwww.bestdancefest.com.ua&amp;_wpnonce=cd7dd09db6" class="recall-button "><i class="rcli fa-external-link"></i><span>Выход</span></a>';
+	echo '<a class="user-order-link btnMy" href="http://www.bestdancefest.com.ua/wp-login.php?action=logout&amp;redirect_to=http%3A%2F%2Fwww.bestdancefest.com.ua&amp;_wpnonce=cd7dd09db6" class="recall-button "><i class="rcli fa-external-link"></i><span>Выход</span></a>';
 	// echo "<button onclick=[logout]>Выйти</button>";
 	echo "</div></div></div>";
 	//echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
@@ -141,8 +156,10 @@ function get_tickets_amount(){
 	try{
 		$result = $conn->query($sql);
 		$row = $result->fetch_assoc();
-
-		return $row["amount"];	
+		if ($row["amount"])
+			return $row["amount"];	
+		else 
+			return 0;
 	}
 	catch (Exception $e)
 	{
@@ -153,32 +170,33 @@ function get_tickets_amount(){
 add_shortcode('get_amount','get_tickets_amount');
 
 function get_max_id(){
-	$servername = "bestda01.mysql.tools";
-	$username = "bestda01_db";
-	$password = "LuyjNXUD";
-	$dbname = "bestda01_db";
-	
-	$conn = new mysqli($servername, $username, $password, $dbname);
-	if ($conn->connect_error){
-		die("Connection error: ");
+		$servername = "bestda01.mysql.tools";
+		$username = "bestda01_db";
+		$password = "LuyjNXUD";
+		$dbname = "bestda01_db";
+		
+		$conn = new mysqli($servername, $username, $password, $dbname);
+		if ($conn->connect_error){
+			die("Connection error: ");
+		}
+		$sql = "SELECT `AUTO_INCREMENT` AS increment
+				FROM  INFORMATION_SCHEMA.TABLES
+				WHERE TABLE_SCHEMA = 'bestda01_db'
+				AND   TABLE_NAME   = 'DATA_INPUT';";
+
+		$url_addres = 'http://'.$_SERVER['HTTP_REFERER'].$_SERVER['REQUEST_URI'];
+		$res_max = $conn->query($sql);
+		$row = $res_max->fetch_assoc(); 
+		
+		if(preg_match("/num_form=[0-9]+/", $url_addres, $array)){
+			$res=preg_match("/num_form=[0-9]+/", $url_addres, $array);
+			return $form_num = substr($array[0], 9);
+		}
+		else
+			return $row["increment"];
+
+
 	}
-
-	$max_form = "SELECT MAX(id) as value FROM DATA_INPUT;";
-	$res_max = $conn->query($max_form);
-	$row = $res_max->fetch_assoc(); 
-
-	$url_addres = 'http://'.$_SERVER['HTTP_REFERER'].$_SERVER['REQUEST_URI'];
-
-	if(preg_match("/num_form=[0-9]+/", $url_addres, $array)){
-		$res=preg_match("/num_form=[0-9]+/", $url_addres, $array);
-		return $form_num = substr($array[0], 9);
-	}
-	else
-		return $row["value"]+1;
-
-
-
-}
 
 add_shortcode('get_max_id_incr','get_max_id');
 	

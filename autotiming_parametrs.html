@@ -5,8 +5,8 @@
 				placeholder="Начало фестиваля"></p> 
 		<!--<p><strong>Длительность перерыва: </strong><br>
 			<input id="duration_rest" style="color:#000;margin-top:0.5vw;" required name="duration_rest" type="time"> -->
-		</p>
-		<input class="submitButton" type="submit" onclick="send_data_form();">
+		
+		<div style="width : 200px; margin: 0 auto;"><a  onclick="send_data_form();" class="btnMy">формировать тайминг</a></div>
 	</form>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<div id="preview"></div>
@@ -18,9 +18,9 @@
 				type: "POST",
 				data: fd,
 				success: function (data) {
-					//alert(data);
+					alert("Тайминг сформирован");
 					format_data(data);
-					window.location = "/";
+					window.location = "/account/";
 				},
 				processData: false,  // tell jQuery not to process the data
 				contentType: false   // tell jQuery not to set contentType

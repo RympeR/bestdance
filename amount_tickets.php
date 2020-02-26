@@ -21,12 +21,19 @@
 		$select_user_id = "SELECT user_id FROM TICKET_AMOUNT;";
 		$res_select = $conn->query($select_user_id);
 
-		while ($row = $res_select->fetch_assoc() )
+		while ($row = $res_select->fetch_assoc() ){
 			$flag = ($row["user_id"] == $_POST["user_id"]) ? 1 : 0;
+			if ($flag == 1){
+				// echo "Билеты добавлены";
+				break;	
+			}
+		}
 	}
-	catch (Exception $e){}
-
-
+	catch (Exception $e){
+		// echo "Вы еще не добавили ни 1й заявки";
+	}
+	// echo "::";
+	// echo $flag;
 	$max_form = "SELECT email, fio  FROM DATA_INPUT WHERE user_id=".$_POST["user_id"].";";
 	$res_max = $conn->query($max_form);
 	$row1 = $res_max->fetch_assoc(); 

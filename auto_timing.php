@@ -2,7 +2,9 @@
 	$begining = $_POST["begining"];
 	$hours = explode(':',$begining)[0]*3600;
 	$minutes = explode(':', $begining )[1]*60;
-	$file_open = fopen("autotiming.csv", 'w');
+	$file_name_date_time = "'autotiming_". date("h:i:sa")."_". date("Y/m/d").".csv'";
+	echo $file_name_date_time;
+	$file_open = fopen("autotiming_". date("h_i")."_". date("Y_m_d").".csv", 'w');
 	fputcsv($file_open,"");
 	fclose($file_open);
 	$global_data = array(
@@ -45,9 +47,9 @@
 	}
 
 	//day 1
-	$sql_28 = "SELECT id, nomination, category, amount, duration, team_name, dance_style, fio, city, file_name, TIME_TO_SEC(duration) as sec_dur  FROM `DATA_INPUT` WHERE nomination != 'Street Show' and nomination !='Show Girls' ORDER by min_age  , skill_level";
+	$sql_28 = "SELECT id, nomination,number_name, category, amount, duration, team_name, dance_style, fio, city, file_name, TIME_TO_SEC(duration) as sec_dur  FROM `DATA_INPUT` WHERE nomination != 'Street Show' and nomination !='Show Girls' ORDER by min_age  , skill_level";
 	//day 2
-	$sql_29 = 'SELECT id, nomination, category, amount, duration, team_name, dance_style, fio, city, file_name, TIME_TO_SEC(duration) as sec_dur FROM `DATA_INPUT` WHERE nomination = "Street Show" or  nomination ="Show Girls" ORDER by min_age  , skill_level;' ;
+	$sql_29 = 'SELECT id, nomination,number_name, category, amount, duration, team_name, dance_style, fio, city, file_name, TIME_TO_SEC(duration) as sec_dur FROM `DATA_INPUT` WHERE nomination = "Street Show" or  nomination ="Show Girls" ORDER by min_age  , skill_level;' ;
 	
 	$result_28 = $conn->query($sql_28);
 	$result_29 = $conn->query($sql_29);
@@ -67,7 +69,10 @@
 //	fputcsv($file_open, $file_data); 
 	while($day_1 = $result_28->fetch_assoc()) {
 		$counter_day_2 ++;
-		$file_data = array($day_1["id"],$day_1["duration"],
+		$file_data = array(
+						"=SUM(B".$counter_day_2.";"."Sum("."K".($counter_day_2-1).';"00:01:00")'.")",
+						$day_1["id"],
+						$day_1["duration"],
 						$day_1["category"],
 						$day_1["nomination"],
 						$day_1["team_name"],
@@ -76,11 +81,10 @@
 						$day_1["city"],
 						$day_1["amount"],
 						$day_1["file_name"],
-						"=SUM(B".$counter_day_2.";"."I".($counter_day_2-1).")"
 	 	);
 	 	array_push($global_data, $file_data);
 	 	// fputcsv($file_open, $file_data); 
-		echo $counter."::".$day_1["id"]."::".$day_1["duration"]."::".$day_1["category"]."::".$day_1["nomination"]."::".$day_1["team_name"]."::".$day_1["dance_style"]."::".$day_1["fio"]."::".$day_1["city"].$day_1["amount"]."::"."::".$day_1["file_name"]."::=SUM(B".$counter_day_2.";"."I".($counter_day_2-1)."):::";
+		echo $counter."::".$day_1["id"]."::".$day_1["duration"]."::".$day_1["category"]."::".$day_1["nomination"]."::".$day_1["team_name"]."::".$day_1["dance_style"]."::".$day_1["fio"]."::".$day_1["city"].$day_1["amount"]."::"."::".$day_1["file_name"]."=SUM(B".$counter_day_2.";"."Sum("."K".($counter_day_2-1).';"00:01:00")'."):::";
 	}
 	$counter_day_2++;
 	$counter = 0;
@@ -92,7 +96,8 @@
 	while($day_2 = $result_29->fetch_assoc()) {
 		$counter_day_2 ++;
 		$counter++;
-		$file_data = array($day_2["id"],$day_2["duration"],
+		$file_data = array(
+						$day_2["id"],
 						$day_2["category"],
 						$day_2["nomination"],
 						$day_2["team_name"],
@@ -101,22 +106,55 @@
 						$day_2["city"],
 						$day_2["amount"],
 						$day_2["file_name"],
-						"=SUM(B".$counter_day_2.";"."I".($counter_day_2-1).")"
+						$day_2["duration"],
+						"=SUM(B".$counter_day_2.";"."Sum("."K".($counter_day_2-1).';"00:01:00")'.")",
+						
 	 	);
 	 	array_push($global_data, $file_data);
 	 	// fputcsv($file_open, $file_data); 
 		
 		echo $counter."::".$day_2["id"]."::".$day_2["duration"]."::".$day_2["category"]."::".
-		$day_2["nomination"]."::".$day_2["team_name"]."::".$day_2["dance_style"]."::".$day_2["fio"]."::".$day_2["city"]."::".$day_2["amount"]."::".$day_2["file_name"]."::=SUM(B".$counter_day_2.";"."I".($counter_day_2-1)."):::";
+		$day_2["nomination"]."::".$day_2["team_name"]."::".$day_2["dance_style"]."::".$day_2["fio"]."::".$day_2["city"]."::".$day_2["amount"]."::".$day_2["file_name"]."::=SUM(B".$counter_day_2.";"."Sum("."K".($counter_day_2-1).';"00:01:00")'."):::";
 	}
 
 	
 	print_r($global_data);
-	$file_open = fopen("autotiming.csv", 'w');
+	$file_open = fopen("autotiming_". date("h_i")."_". date("Y_m_d").".csv", 'w');
 	foreach ($global_data as $row) {
-		echo "string";
 		fputcsv($file_open, $row);
 	}
-	// fclose($file_open);
+
 	fclose($file_open);
+
+	$to_email = 'bestdancefest@gmail.com';
+	$subject = 'autotiming';
+	$mail_file_name = "autotiming_". date("h_i")."_". date("Y_m_d").".csv";
+	// // $to = "bestdancefest@gmail.com";
+	// $to = "georg.rashkov@gmail.com";
+	// $from = "s-thng@gmail.com";
+	// $subject = "autotiming"; 
+ //  	$message = "Автотайминг фестиваль";
+ //  	$boundary = "---"; 
+  	
+ //  	$headers = "From: $from\nReply-To: $from\n";
+ //  	$headers .= "Content-Type: multipart/mixed; boundary=\"$boundary\"";
+	// $body = "--$boundary\n";
+	// $body .= "Content-type: text/html; charset='utf-8'\n";
+	// $body .= "Content-Transfer-Encoding: quoted-printablenn";
+	// $body .= "Content-Disposition: attachment; filename==?utf-8?B?".base64_encode($mail_filename)."?=\n\n";
+	// $body .= $message."\n";
+	// $body .= "--$boundary\n";
+	// $filem = fopen("autotiming_". date("h_i")."_". date("Y_m_d").".csv", "r"); 
+	// $text = fread($filem, filesize($mail_filename)); 
+	// fclose($filem); 
+	
+	// $body .= "Content-Type: application/octet-stream; name==?utf-8?B?".base64_encode($mail_filename)."?=\n";
+	// $body .= "Content-Transfer-Encoding: base64\n";
+	// $body .= "Content-Disposition: attachment; filename==?utf-8?B?".base64_encode($mail_filename)."?=\n\n";
+	// $body .= chunk_split(base64_encode($text))."\n";
+	// $body .= "--".$boundary ."--\n";
+	// mail($to, $subject, $body, $headers); //Отправляем письмо
+	$message = '<p>http://bestdancefest.com.ua/'.$mail_file_name.'</p>';
+	$headers = "Content-type: text/html; charset=utf-8\r\n";
+	mail($to_email,$subject,$message,$headers);
  ?>

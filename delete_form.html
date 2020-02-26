@@ -1,0 +1,87 @@
+<div style="text-align: center;">
+	<form onsubmit="return false" name="form" id="form">
+		<p><strong>Номер заявки: </strong><br>
+			<input id="id" style="color:#000;margin-top:0.5vw;" required name="id" type="number"
+				placeholder="Номер заявки">
+				<input type="hidden" id="user_id" value=[get-login]></p> 
+		</p>
+		<div style="width : 200px; margin: 0 auto;"><a onclick="send_data_form();" class="btnMy">Удалить заявку</a></div>
+	</form>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<div id="preview"></div>
+	<script>
+		function send_data_form() {
+			var fd = new FormData(document.getElementById("form"));
+			var choice = confirm("Вы уверены?");
+			if (choice){		
+				$.ajax({
+					url: "/delete_form.php",
+					type: "POST",
+					data: fd,
+					success: function (data) {
+						// alert(data);
+						format_data(data);
+						alert("Заявка удалена");
+						window.location = "/account/";
+					},
+					processData: false,  // tell jQuery not to process the data
+					contentType: false   // tell jQuery not to set contentType
+				});
+			delete_form();			
+			}
+		}
+		function delete_form(){
+					var script_url = "https://script.google.com/macros/s/AKfycbwWYl9o0O67FYg1H6_OK2G6svL5Q8oQpSdsKMCvsF5Ah4_BLnI/exec";
+					var id_form = $("#id").val();
+						url = script_url+"?callback=ctrlq&id_form="+id_form+"&action=delete";
+						var fd = new FormData(document.getElementById("form"));
+						var request = jQuery.ajax({
+						      crossDomain: true,
+						      url: url ,
+						      method: "GET",
+						      dataType: "jsonp"
+						    });
+					}
+	</script>
+</div>
+<style>
+	input,
+	button,
+	select,
+	textarea {
+		width: 400px;
+		text-align: center;
+		padding: 10px;
+	}
+
+	.submitButton {
+		background-color: #30c323;
+		color: #fff;
+		font-weight: 600;
+		font-family: Roboto, Helvetica, sans-serif;
+		border: 0;
+		padding: 20px;
+	}
+
+	.submitButton:hover {
+		background-color: #5ce750;
+	}
+
+	.coloredHeader {
+
+		display: flex;
+		margin: 30px auto;
+		width: 600px;
+		border: 1px solid;
+		border-radius: 42px;
+		padding: 20px;
+		padding-top: 20px;
+		padding-right: 20px;
+		padding-bottom: 20px;
+		padding-left: 20px;
+		text-align: center;
+		align-items: center;
+		justify-content: center;
+		cursor: default;
+	}
+</style>

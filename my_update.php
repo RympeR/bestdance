@@ -29,7 +29,6 @@
 	            $fio = $row["fio"];
 	            $number = $row["number"];
 	            $email = $row["email"];
-	            $facebook = $row["facebook"];
 	            $city = $row["city"];
 	            $number_name = $row["number_name"];
 	            $team_name = $row["team_name"];
@@ -41,10 +40,10 @@
 	            $file_name = $row["file_name"];
 	            $dance_style = $row["dance_style"];
 
-	            echo "".$nomination."::".$category."::".$skill_level."::".$group_age.
-	            "::".$fio."::".$number."::".$email."::".$facebook."::".$city.
+	            echo "".$nomination."::".$category."::".$group_age."::".$skill_level.
+	            "::".$fio."::".$number."::".$email."::".$city.
 	            "::".$number_name."::".$team_name."::".$duration."::".$amount.
-	            "::".$max_age."::".$min_age."::".$photo_name.
+	            "::".$min_age."::".$max_age."::".$photo_name.
 	            "::".$dance_style."::".$file_name;
 	        }
 	        $conn->close();

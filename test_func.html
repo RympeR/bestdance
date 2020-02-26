@@ -1,423 +1,510 @@
-<div style="text-align: center;">
-	<div id="response"></div>
-	<a href="http://www.bestdancefest.com.ua/account/"><strong><h3>В личный кабинет</h3></strong></a>
-	<form onsubmit="return false"  name="client_form"  id="form" enctype="multipart/form-data">
-		<input id="1" name="id_user" type="hidden" value=[get-login]>
-		<input id="music_name_info_" name="music_name_info_" type="hidden">
-		<input type="hidden" id="get_max_id_incr" disabled name="get_max_id_incr" value=[get_max_id_incr]>
+		<div style="text-align: center;">
+			<div id="response"></div>
+			<a href="http://www.bestdancefest.com.ua/account/"><strong><h3>В личный кабинет</h3></strong></a>
+			<form onsubmit="return false"  name="client_form"  id="form" enctype="multipart/form-data">
+				<input id="id_user" name="id_user" type="hidden" value=[get-login]>
+				<input id="music_name_info_" name="music_name_info_" type="hidden">
+				<input type="hidden" id="get_max_id_incr" disabled name="get_max_id_incr" value=[get_max_id_incr]>
 
-		<h2 class="coloredHeader">Основная информация</h2>
-		<p><strong>Номинация:</strong><br>
-			<div style="color:#000">
-				<select id="nomination_selectA" required name="nomination">
-					<option disabled selected>Выберите номинацию</option>
-					<option value="Street Show">Street Show</option>
-					<option value="Show Girls">Show Girls</option>
-					<option value="Современная хореография">Современная хореография</option>
-					<option value="Эстрадный танец">Эстрадный танец</option>
-					<option value="Народный танец">Народный танец</option>
-					<option value="Классическая хореография">Классическая хореография</option>
-				</select>
-			</div>
-		</p>
-		<p><strong>Категория:</strong><br>
-			<div style="color:#000">
-				<select id="category" required name="category">
-					<option selected disabled>Выберите категорию</option>
-					<option value="Solo">Solo</option>
-					<option value="Duo/Trio">Duo/Trio</option>
-					<option value="Crew/Small Group(4-9 участников)">Crew/Small Group(4-9 участников)</option>
-					<option value="Megacrew/Big Group(10-30 участников)">Megacrew/Big Group(10-30 участников)
-					</option>
-				</select>
-			</div>
-		</p>
-		<p><strong>Уровень подготовки:</strong><br>
-			<div style="color:#000">
-				<select id="skill_level" required name="skill_level">
-					<option selected disabled>Выберите уровень</option>
-					<option value="Beginners (Начинающие)">Beginners (Начинающие)</option>
-					<option value="Pro (Опытные)">Pro (Опытные)</option>
-				</select>
-			</div>
+				<h2 class="coloredHeader">Основная информация</h2>
+				<p><strong>Номинация:</strong><br>
+					<div style="color:#000">
+						<select id="nomination_selectA" required name="nomination">
+							<option disabled selected>Выберите номинацию</option>
+							<option value="Street Show">Street Show</option>
+							<option value="Show Girls">Show Girls</option>
+							<option value="Современная хореография">Современная хореография</option>
+							<option value="Эстрадный танец">Эстрадный танец</option>
+							<option value="Народный танец">Народный танец</option>
+							<option value="Классическая хореография">Классическая хореография</option>
+						</select>
+					</div>
+				</p>
+				<p><strong>Категория:</strong><br>
+					<div style="color:#000">
+						<select id="category" required name="category">
+							<option selected disabled>Выберите категорию</option>
+							<option value="Solo">Solo</option>
+							<option value="Duo/Trio">Duo/Trio</option>
+							<option value="Crew/Small Group(4-9 участников)">Crew/Small Group(4-9 участников)</option>
+							<option value="Megacrew/Big Group(10-30 участников)">Megacrew/Big Group(10-30 участников)
+							</option>
+						</select>
+					</div>
+				</p>
+				<p><strong>Возраст:</strong><br>
+					<div style="color:#000">
+						<select id="group_age" required name="group_age">
+							<option selected disabled>Выберите возраст</option>
+							<option value="4-6 Little stars">4-6 Little stars</option>
+							<option value="7-9 kids">7-9 kids</option>
+							<option value="10-12 juniors1">10-12 juniors1</option>
+							<option value="13 – 15 juniors2">13 – 15 juniors2</option>
+							<option value="Adults 16-19">Adults 16-19</option>
+							<option value="Adults+ 20 лет и старше">Adults+ 20 лет и старше</option>
+						</select>
+					</div>
+				</p>
+				<p><strong>Уровень подготовки:</strong><br>
+					<div style="color:#000">
+						<select id="skill_level" required name="skill_level">
+							<option selected disabled>Выберите уровень</option>
+							<option value="Beginners (Начинающие)">Beginners (Начинающие)</option>
+							<option value="Pro (Опытные)">Pro (Опытные)</option>
+						</select>
+					</div>
 
-		</p>
-		<p><strong>Возраст:</strong><br>
-			<div style="color:#000">
-				<select id="group_age" required name="group_age">
-					<option selected disabled>Выберите возраст</option>
-					<option value="4-6 Little stars">4-6 Little stars</option>
-					<option value="7-9 kids">7-9 kids</option>
-					<option value="10-12 juniors1">10-12 juniors1</option>
-					<option value="13 – 15 juniors2">13 – 15 juniors2</option>
-					<option value="Adults 16-19">Adults 16-19</option>
-					<option value="Adults+ 20 лет и старше">Adults+ 20 лет и старше</option>
-				</select>
-			</div>
-		</p>
-
-		<h2 class="coloredHeader">Информация о выступлении</h2>
-
-		<p><strong>Название номера: </strong><br>
-			<input id="number_name" style="color:#000;margin-top:0.5vw;" required name="number_name" type="text"
-				placeholder="Название номера"></p>
-		<p><strong>Название команды: </strong><br>
-			<input id="team_name" style="color:#000;margin-top:0.5vw;" required name="team_name" type="text"
-				placeholder="Название команды / ФИО учасника(-ов)(Solo,Duo/Trio)"></p>
-		<p><strong>Длительность выступления: </strong><br>
-			<input id="duration" style="color:#000;margin-top:0.5vw;" required name="duration" type="time"
-				placeholder="Длительность выступления"></p>
-		<p><strong>Количество участников: </strong><br>
-			<input id="amount" style="color:#000;margin-top:0.5vw;" required name="amount" type="number"
-				placeholder="Количество участников"></p>
-		<p><strong>Возраст самого младшего: </strong><br>
-			<input id="min_age" style="color:#000;margin-top:0.5vw;" required name="min_age" type="number"
-				placeholder="Возраст самого младшего"></p>
-		<p><strong>Возраст самого старшего: </strong><br>
-			<input id="max_age" style="color:#000;margin-top:0.5vw;" required name="max_age" type="number"
-				placeholder="Возраст самого старшего"></p>
-		<!-- <p><strong>Начало выступления: </strong><br><input name="begining_time" disabled type="time" placeholder="Начало выступления"></p> -->
-		<p><strong>Стиль танцев: </strong><br><input id="dance_style" style="color:#000;margin-top:0.5vw;" required
-				type="textarea" name="dance_style"
-				placeholder="Укажите ваш стиль танца в данном направлении (например хип-хоп, контемпорари, эстрадный танец и т. д.)">
-		</p>
-
-		<p><strong>Аудио файл: ( mp3 или wav, до 24Мб ) </strong><br>
-			<input id="file_name" required type="file" name="file_name" placeholder="Загрузите аудио файл" accept="audio/*" 
-				style="margin-left: 50%;margin-top: 0.5vw;display: flex;transform: translate(-50%);"></p>
-		<span style="font-weight: : bold; text-decoration:underline; " id="old_file"></span>
-		<h2 class="coloredHeader">Контактная информация</h2>
-		<p><strong>ФИО: </strong><br>
-			<input id="fio" style="color:#000;margin-top:0.5vw;" name="fio" required type="text"
-				placeholder="ФИО руководителя"></p>
-
-		<p><strong>Телефон: </strong><br>
-			<input id="number" style="color:#000;margin-top:0.5vw;" name="tel_number" required type="tel"
-				placeholder="Телефонный номер"></p>
-		<p><strong>Почта: </strong><br>
-			<input id="email" style="color:#000;margin-top:0.5vw;" required name="email" type="email"
-				placeholder="Адрес электронной почты"></p>
-		<p><strong>Facebook: </strong><br>
-			<input id="facebook" style="color:#000;margin-top:0.5vw;" required name="facebook" type="url"
-				placeholder="Ссылка на профиль Facebook"></p>
-		<p><strong>Город: </strong><br>
-			<input id="city" style="color:#000;margin-top:0.5vw;" required name="city" type="text" placeholder="Город">
-		</p>
-
-		<p><strong style="color: #e6af0e;">Фото чека с оплатой:( png | jpg | jpeg, до 5Мб ) </strong><br>
-			<input id="photo_name" accept="image/*" type="file" name="photo_name" placeholder=""
-				style="margin-left: 50%;margin-top: 0.5vw;display: flex;transform: translate(-50%);"></p>
-		<div id="loader"></div>
-		<button class="deleteButton" style = "display:none;" onclick="delete_form();" id= "delete">Удалить заявку</button>
-		<p id="re"></p>
-		<input class="submitButton" type="submit" onclick="send_data_form();">
-	</form>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script>
-		window.onload = function(){
-			var url = window.location;
-
-
-			if ( url != "http://www.bestdancefest.com.ua/form/"){
-				document.getElementById("delete").style.display = 'inline';
-			}
-			document.getElementsByTagName('input')[10].onchange = function() {
-			if (this.files[0]) // если выбрали файл
-				document.getElementById("music_name_info_").value = this.files[0].name;
-			};
-			document.getElementById('amount').addEventListener('mousewheel', function(e){
-    			e.preventDefault();
-			});
-			document.getElementById('min_age').addEventListener('mousewheel', function(e){
-   				e.preventDefault();
-			});
-			document.getElementById('max_age').addEventListener('mousewheel', function(e){
-   				e.preventDefault();
-			});
-		}
-		function delete_form(){
-			var script_url = "https://script.google.com/macros/s/AKfycbwWYl9o0O67FYg1H6_OK2G6svL5Q8oQpSdsKMCvsF5Ah4_BLnI/exec";
-
-			var url = window.location,
-				reg = new RegExp("num_form=[0-9]+"),
-				res_reg = reg.exec(url),
-				id_form = res_reg[0].substring(9),
-  				category = $("#category").val(),
-  				nomination = $("#nomination_selectA").val(),
-  				amount = $("#amount").val(),
-				team_name = $("#team_name").val(),
-				fio = $("#fio").val(),
-				dance_style = $("#dance_style").val(),
-				city = $("#city").val();
-
-			var send_data_id = $("#get_max_id_incr").val();
-			send_data_id = id_form;
-			var choice = confirm("Вы уверены?");
-			if (choice){
-				url = script_url+"?callback=ctrlq&id_form="+id_form+"&fio="+fio+"&category="+category+"&nomination="+nomination+"&team_name="+team_name+
-				"&dance_style="+dance_style+"&city="+city+"&amount="+amount+"&action=delete";
-				var fd = new FormData(document.getElementById("form"));
-				var request = jQuery.ajax({
-				      crossDomain: true,
-				      url: url ,
-				      method: "GET",
-				      dataType: "jsonp"
-				    });
-
-
-				$.ajax({
-					type: "POST",
-					url: "/delete_form.php",
-					data: { 'id': id_form },
-					success: function (phpData) {
-						alert("Ваша заявка успешно удалена");
-						setTimeout(function(){
-							window.location = "/account/";	
-						},1000);
-					},
-					complete: function () {
-					},
-					dataType: "text"
-				});
-
-				
-
-			}
-			else 
-				{}
-
-
-
-
-		}
-		function send_data_form() {
+				</p>
 			
-		
 
-			var script_url = "https://script.google.com/macros/s/AKfycbwWYl9o0O67FYg1H6_OK2G6svL5Q8oQpSdsKMCvsF5Ah4_BLnI/exec";
+				<h2 class="coloredHeader">Информация о выступлении</h2>
 
+				<p><strong>Название номера: </strong><br>
+					<input id="number_name" style="color:#000;margin-top:0.5vw;" required name="number_name" type="text"
+						placeholder="Название номера"></p>
+				<p><strong>Название команды: </strong><br>
+					<input id="team_name" style="color:#000;margin-top:0.5vw;" required name="team_name" type="text"
+						placeholder="Название команды / ФИО учасника(-ов)(Solo,Duo/Trio)"></p>
+				<p><strong>Длительность выступления: </strong><br>
+					<input id="duration" style="color:#000;margin-top:0.5vw;" required name="duration" value="00:00" type="time"
+						placeholder="Длительность выступления"></p>
+				<p><strong>Количество участников: </strong><br>
+					<input id="amount" style="color:#000;margin-top:0.5vw;" required name="amount" type="number"
+						placeholder="Количество участников"></p>
+				<p><strong>Возраст самого младшего: </strong><br>
+					<input id="min_age" style="color:#000;margin-top:0.5vw;" required name="min_age" type="number"
+						placeholder="Возраст самого младшего"></p>
+				<p><strong>Возраст самого старшего: </strong><br>
+					<input id="max_age" style="color:#000;margin-top:0.5vw;" required name="max_age" type="number"
+						placeholder="Возраст самого старшего"></p>
+				<!-- <p><strong>Начало выступления: </strong><br><input name="begining_time" disabled type="time" placeholder="Начало выступления"></p> -->
+				<p><strong>Стиль танцев: </strong><br><input id="dance_style" style="color:#000;margin-top:0.5vw;" required
+						type="textarea" name="dance_style"
+						placeholder="Укажите ваш стиль танца в данном направлении (например хип-хоп, контемпорари, эстрадный танец и т. д.)">
+				</p>
 
-  			var duration = $("#duration").val(),
-  				category = $("#category").val(),
-  				nomination = $("#nomination_selectA").val(),
-  				amount = $("#amount").val(),
-				team_name = $("#team_name").val(),
-				fio = $("#fio").val(),
-				dance_style = $("#dance_style").val(),
-				city = $("#city").val(),
-				music = $("#music_name_info_").val(),
-				get_id_form = document.getElementById("get_max_id_incr").value,
-				email = $("#email").val(),
-				facebook = $("#email").val(),
-				tel_number = $("#number").val(),
-				min_age = $("#min_age").val(),
-				max_age = $("#max_age").val(),
-				number_name = $("#number_name").val(),
-				group_age = $("#group_age").val(),
-				skill_level = $("#skill_level").val(),
-				facebook = $("#facebook").val(),
-				url = window.location;
-
-
-			if (url != "http://www.bestdancefest.com.ua/form/") {
-
-
-				var url = script_url+"?callback=ctrlq&id_form="+id_form+"&duration="+duration+"&nomination="+nomination+"&category="+category+"&team_name="+team_name+"&fio="+fio+"&dance_style="+dance_style+"&city="+city+"&amount="+amount+"&music="+music+"&action=update";
-
-			}
-			else{
-				var url = script_url+"?callback=ctrlq&id_form="+get_id_form+"&duration="+duration+"&nomination="+nomination+"&category="+category+"&team_name="+team_name+"&fio="+fio+"&dance_style="+dance_style+"&city="+city+"&amount="+amount+"&music="+music+"&action=insert";
-			}
+				<p><strong>Аудио файл: ( mp3 или wav, до 24Мб ) </strong><br>
+					<input id="file_name" required type="file" name="file_name" placeholder="Загрузите аудио файл" accept="audio/*" 
+						style="margin-left: 50%;margin-top: 0.5vw;display: flex;transform: translate(-50%);"></p>
+				<span style="font-weight: : bold; "  id="old_file"></span>
 				
-
-				//alert(url);
-		
-			if(duration != "--:--" && category != "Выберите категорию" && nomination != "Выберите номинацию" 
-				&& amount!="" && team_name != "" && fio != "" && city != "" && dance_style != "" 
-				&& email != "" && facebook !="" && tel_number != "" && min_age != "" && max_age != "" 
-				&& number_name != "" && facebook != "" && group_age != "Выберите возраст" && skill_level !="Выберите уровень"){
-				$("#re").css("visibility","hidden");
-		 		document.getElementById("loader").style.visibility = "visible";
-				$('#mySpinner').addClass('spinner');
-
-				var request = jQuery.ajax({
-				      crossDomain: true,
-				      url: url ,
-				      method: "GET",
-				      dataType: "jsonp"
-				    });
-
+				<audio style="display: none;" controls  id="audio_old" type="audio/*" src="">
 				
+					<p>Your browser doesn't support HTML5 audio. Here is a  instead.</p>
+				</audio>
 				
-				var fd = new FormData(document.getElementById("form"));
-				fd.append('file_name', $('#file_name')[0].files[0]);
-				fd.append('photo_name', $('#photo_name')[0].files[0]);
+				<h2 class="coloredHeader">Контактная информация</h2>
+				<p><strong>ФИО: </strong><br>
+					<input id="fio" style="color:#000;margin-top:0.5vw;" name="fio" required type="text"
+						placeholder="ФИО руководителя"></p>
 
-				$.ajax({
-					url: "/my.php",
-					type: "POST",
-					data: fd,
-					success: function (data) {
-						// alert(data);
-						alert("Ваша заявка успешно добавлена");
-						setTimeout(function(){
-							window.location = "/account/";	
-						},1000)
+				<p><strong>Телефон: </strong><br>
+					<input id="number" style="color:#000;margin-top:0.5vw;" name="tel_number" required type="tel"
+						placeholder="Телефонный номер"></p>
+				<p><strong>Почта: </strong><br>
+					<input id="email" style="color:#000;margin-top:0.5vw;" required name="email" type="email"
+						placeholder="Адрес электронной почты"></p>
+			<!-- 	<p><strong>Facebook: </strong><br>
+					<input id="facebook" style="color:#000;margin-top:0.5vw;" required name="facebook" type="url"
+						placeholder="Ссылка на профиль Facebook"></p> -->
+				<p><strong>Город: </strong><br>
+					<input id="city" style="color:#000;margin-top:0.5vw;" required name="city" type="text" placeholder="Город">
+				</p>
+
+				<p><strong style="color: #e6af0e;">Фото чека с оплатой:( png | jpg | jpeg, до 5Мб ) </strong><br>
+					<input id="photo_name" accept="image/*" type="file" name="photo_name" placeholder=""
+						style="margin-left: 50%;margin-top: 0.5vw;display: flex;transform: translate(-50%);"></p>
+				<img src=""  id = "photo-old" style="display: none;width:50 vw; ">
+				<div id="loader"></div>
+				<button class="deleteButton" style = "display:none;" onclick="delete_form();" id= "delete">Удалить заявку</button>
+				<p id="re"></p>
+			
+				<div style="width : 200px; margin: 0 auto;"><a onclick="send_data_form();" class="btnMy">Отправить заявку</a></div>
+			</form>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+			<script>
+				window.onload = function(){
+					var url = window.location;
+					if ( url != "http://www.bestdancefest.com.ua/form/"){
+						document.getElementById("audio_old").style.display = 'inline';
+					}
+
+					document.getElementsByTagName('input')[10].onchange = function() {
+					if (this.files[0]) // если выбрали файл
+						document.getElementById("music_name_info_").value = this.files[0].name;
+					};
+					document.getElementById('amount').addEventListener('mousewheel', function(e){
+		    			e.preventDefault();
+					});
+					document.getElementById('min_age').addEventListener('mousewheel', function(e){
+		   				e.preventDefault();
+					});
+					document.getElementById('max_age').addEventListener('mousewheel', function(e){
+		   				e.preventDefault(); 	
+					});
+					document.getElementById('duration').addEventListener('mousewheel', function(e){
+		   				e.preventDefault(); 	
+					});
+					$('form').on('focus', 'input[type=number]', function (e) {
+					  $(this).on('wheel.disableScroll', function (e) {
+					    e.preventDefault()
+					  });
+					})
+					$('form').on('blur', 'input[type=number]', function (e) {
+					  $(this).off('wheel.disableScroll')
+					});
+				}
+				function delete_form(){
+					var script_url = "https://script.google.com/macros/s/AKfycbwWYl9o0O67FYg1H6_OK2G6svL5Q8oQpSdsKMCvsF5Ah4_BLnI/exec";
+
+					var url = window.location,
+						reg = new RegExp("num_form=[0-9]+"),
+						res_reg = reg.exec(url),
+						id_form = res_reg[0].substring(9),
+		  				category = $("#category").val(),
+		  				nomination = $("#nomination_selectA").val(),
+		  				amount = $("#amount").val(),
+						team_name = $("#team_name").val(),
+						fio = $("#fio").val(),
+						user_id = $("#id_user").val(),
+						dance_style = $("#dance_style").val(),						
+						city = $("#city").val();
+
+					var send_data_id = $("#get_max_id_incr").val();
+					send_data_id = id_form;
+					var choice = confirm("Вы уверены?");
+					if (choice){
+						url = script_url+"?callback=ctrlq&id_form="+id_form+"&fio="+fio+"&user_id="+user_id+"&category="+category+"&nomination="+nomination+"&team_name="+team_name+
+						"&dance_style="+dance_style+"&city="+city+"&amount="+amount+"&action=delete";
+						var fd = new FormData(document.getElementById("form"));
+						var request = jQuery.ajax({
+						      crossDomain: true,
+						      url: url ,
+						      method: "GET",
+						      dataType: "jsonp"
+						    });
+
+
+						$.ajax({
+							type: "POST",
+							url: "/delete_form.php",
+							data: { 'id': id_form },
+							success: function (phpData) {
+								alert("Ваша заявка успешно удалена");
+								setTimeout(function(){
+									window.location = "/account/";	
+								},1000);
+							},
+							complete: function () {
+							},
+							dataType: "text"
+						});
+
 						
-					},
-					processData: false,  // tell jQuery not to process the data
-					contentType: false   // tell jQuery not to set contentType
+
+					}
+					else 
+						{}
+
+
+
+
+				}
+
+				function send_data_form(){ 
+
+  				  $( "input[type=text]" ).each(function() {
+				    var text = $(this).val();
+				    text = text.replace(/"/g, "");
+				    $(this).val(text); 
+				  });
+				
+					var script_url = "https://script.google.com/macros/s/AKfycbwWYl9o0O67FYg1H6_OK2G6svL5Q8oQpSdsKMCvsF5Ah4_BLnI/exec";
+
+		  			var duration = $("#duration").val(),
+		  				category = $("#category").val(),
+		  				nomination = $("#nomination_selectA").val(),
+		  				amount = $("#amount").val(),
+						team_name = $("#team_name").val(),
+						fio = $("#fio").val(),
+						dance_style = $("#dance_style").val(),
+						city = $("#city").val(),
+						music = $("#music_name_info_").val(),
+						get_id_form = document.getElementById("get_max_id_incr").value,
+						email = $("#email").val(),
+						user_id = $("#id_user").val(),
+						tel_number = $("#number").val(),
+						min_age = $("#min_age").val(),
+						max_age = $("#max_age").val(),
+						number_name = $("#number_name").val(),
+						group_age = $("#group_age").val(),
+						skill_level = $("#skill_level").val(),
+						url = window.location;
+
+
+					if (url != "http://www.bestdancefest.com.ua/form/") {
+						var url = script_url+"?callback=ctrlq&id_form="+get_id_form+"&user_id="+user_id+"&duration="+duration+"&nomination="+nomination+"&category="+category+"&team_name="+team_name+"&fio="+fio+"&dance_style="+dance_style+"&city="+city+"&amount="+amount+"&music="+music+"&email="+email+"&tel_number="+tel_number+"&min_age="+min_age+"&max_age="+max_age+"&number_name="+number_name+"&group_age="+group_age+"&skill_level="+skill_level+"&action=update";
+					}
+					else{
+						var url = script_url+"?callback=ctrlq&id_form="+get_id_form+"&user_id="+user_id+"&duration="+duration+"&nomination="+nomination+"&category="+category+"&team_name="+team_name+"&fio="+fio+"&dance_style="+dance_style+"&city="+city+"&amount="+amount+"&music="+music+"&email="+email+"&tel_number="+tel_number+"&min_age="+min_age+"&max_age="+max_age+"&number_name="+number_name+"&group_age="+group_age+"&skill_level="+skill_level+"&action=insert";
+					}
+					
+
+						//alert(url);
+				
+					if(duration != "--:--" && category != "Выберите категорию" && nomination != "Выберите номинацию" 
+						&& amount!="" && team_name != "" && fio != "" && city != "" && dance_style != "" 
+						&& email != "" && tel_number != "" && min_age != "" && max_age != "" 
+						&& number_name != "" && group_age != "Выберите возраст" && skill_level !="Выберите уровень"){
+						$("#re").css("visibility","hidden");
+				 		document.getElementById("loader").style.visibility = "visible";
+						$('#mySpinner').addClass('spinner');
+						
+
+						var request = jQuery.ajax({
+						      crossDomain: true,
+						      url: url ,
+						      method: "GET",
+						      dataType: "jsonp"
+						    });
+						
+						
+						var fd = new FormData(document.getElementById("form"));
+						fd.append('file_name', $('#file_name')[0].files[0]);
+						fd.append('photo_name', $('#photo_name')[0].files[0]);
+
+						$.ajax({
+							url: "/my.php",
+							type: "POST",
+							data: fd,
+							success: function (data) {
+								// alert(data);
+								alert("Ваша заявка успешно добавлена");
+								window.location = "/account/";	
+							},
+							processData: false,  // tell jQuery not to process the data
+							contentType: false   // tell jQuery not to set contentType
+						});
+
+					}
+					else {
+						alert("Введите все поля");
+					}
+				}
+				function format_data(data) {
+				
+					let splitted_data = data.split('::'),
+						music_name_info = document.getElementById("music_name_info_"),
+						music_old_play = $("#audio_old"),
+						user_id = $("#id_user").val();
+
+						
+					let input_id = [
+									document.getElementById('nomination_selectA'),
+									document.getElementById('category'),
+									document.getElementById('group_age'),
+									document.getElementById('skill_level'),
+									document.getElementById('fio'),
+									document.getElementById('number'),
+									document.getElementById('email'),
+									document.getElementById('city'),
+									document.getElementById('number_name'),
+									document.getElementById('team_name'),
+									document.getElementById('duration'),
+									document.getElementById('amount'),
+									document.getElementById('min_age'),
+									document.getElementById('max_age'),
+									document.getElementById('photo_name'),
+									document.getElementById('dance_style'),
+									document.getElementById('old_file')];
+
+
+					for (var i = 0; i < splitted_data.length; i++) {
+						if (i == 0) {
+							input_id[i].value = splitted_data[i].substring(1);
+						}
+						else if (i == 10) {
+							input_id[i].value = splitted_data[i].substring(3);
+						}	
+						else if (i == 14) {
+							input_id[i].name = splitted_data[i];
+								let url = window.location,
+									reg = new RegExp("num_form=[0-9]+"),
+									res_reg = reg.exec(url);
+									id_form = res_reg[0].substring(9);
+							try {
+								$("#photo-old")[0].src = '/wp-content/themes/bestdancefest.com.ua/upload_files/photo_payment/'+user_id+'/'+id_form+'/'+splitted_data[i];
+								$("#photo-old")[0].style.display = "inline";
+								$("#photo-old")[0].style.width = "50%";
+							} catch(e) {
+
+							}
+							
+
+						}
+						else if( i == 16 ){
+								let url = window.location,
+									reg = new RegExp("num_form=[0-9]+"),
+									res_reg = reg.exec(url);
+									id_form = res_reg[0].substring(9);
+
+							input_id[i].innerHTML +="Старая композиция: " + splitted_data[i] +"<br>" ;
+							
+							$("#audio_old")[0].src = '/wp-content/themes/bestdancefest.com.ua/upload_files/music/'+user_id+'/'+id_form+'/'+splitted_data[i];
+							//alert($("#audio_old")[0].src);
+						//	alert($("#audio_old")[0].src);
+						}
+						else {
+							input_id[i].value = splitted_data[i];
+						}
+
+					}
+
+				}
+
+
+				let url = window.location,
+					reg = new RegExp("num_form=[0-9]+"),
+					res_reg = reg.exec(url);
+					
+				//alert(window.location)
+				if (url != "http://www.bestdancefest.com.ua/form/") {
+					id_form = res_reg[0].substring(9);
+					//alert("here")
+					$.ajax({
+						type: "POST",
+						url: "/my_update.php",
+						data: { 'id': id_form },
+						success: function (phpData) {
+							//alert(phpData);
+							format_data(phpData);
+						},
+						complete: function () {
+						},
+						dataType: "text"
+					});
+
+
+					
+
+				}
+
+
+
+
+			</script>
+		
+			<script>
+				$(document).ready(function () {
+					checkFieldState();
+					$("#category").change(checkFieldState);
+					$("#group_age").change(checkFieldState);
 				});
 
-			}
-			else {
-				alert("Введите все поля");
-			}
-		}
-		function format_data(data) {
-		
-			let splitted_data = data.split('::'),
-				music_name_info = document.getElementById("music_name_info_");
-			
-			let input_id = [document.getElementById('nomination_selectA'),
-			document.getElementById('category'),
-			document.getElementById('skill_level'),
-			document.getElementById('group_age'),
-			document.getElementById('fio'),
-			document.getElementById('number'),
-			document.getElementById('email'),
-			document.getElementById('facebook'),
-			document.getElementById('city'),
-			document.getElementById('number_name'),
-			document.getElementById('team_name'),
-			document.getElementById('duration'),
-			document.getElementById('amount'),
-			document.getElementById('min_age'),
-			document.getElementById('max_age'),
-			document.getElementById('photo_name'),
-			document.getElementById('dance_style'),
-			document.getElementById('old_file')];
+				function checkFieldState() {
+					var selectedValue = document.getElementById("category").value;
+					var selectAge = document.getElementById("group_age").value;
+					var result = document.getElementById("skill_level").value;
+					if (selectedValue == "Solo" || selectedValue == "Duo/Trio") {
+						document.getElementById("skill_level").innerHTML = '<option selected disabled>Выберите уровень</option>';
+						document.getElementById("skill_level").innerHTML += '<option value="Pro (Опытные)">Pro (Опытные)</option>"';
+	                                        document.getElementById("skill_level").style.visibility="visible"; 
+	                                        document.getElementById("skill_level").selectedIndex = "1"; 
+					}
+					else {
+						document.getElementById("skill_level").innerHTML = '<option selected disabled>Выберите уровень</option>';
+						document.getElementById("skill_level").innerHTML += '<option value="Beginners (Начинающие)">Beginners (Начинающие)</option>';
+						document.getElementById("skill_level").innerHTML += '<option value="Pro (Опытные)">Pro (Опытные)</option>"';
+	                                        document.getElementById("skill_level").style.visibility="visible"; 
+	                                        document.getElementById("skill_level").selectedIndex = "1"; 
+					}
+					if(selectAge == "4-6 Little stars"){
+						<!--document.getElementById("skill_level").innerHTML = '<option selected disabled>Выберите уровень</option>';-->
+						document.getElementById("skill_level").innerHTML = '<option value="Beginners (Начинающие)">Beginners (Начинающие)</option>';
+	                                        document.getElementById("skill_level").style.visibility="hidden"; 
+	                                        document.getElementById("skill_level").selectedIndex = "1"; 
 
-
-			for (var i = 0; i < splitted_data.length; i++) {
-				if (i == 0) {
-					input_id[i].value = splitted_data[i].substring(1);
+					}
+					document.getElementById("skill_level").value = result;
 				}
-				else if (i == 11) {
-					input_id[i].value = splitted_data[i].substring(3);
-				}	
-				else if (i == 15) {
-					input_id[i].name = splitted_data[i];
-				}
-				else if( i == 17 ){
-					input_id[i].innerHTML +="Старая композиция: " + splitted_data[i];
-				}
-				else {
-					input_id[i].value = splitted_data[i];
-				}
+			</script>
+		</div>
 
-			}
+		<style>
+			 .btnMy {
+		        background-color: #30c323;
+		        color: #fff;
+		        font-weight: 600;
+		        font-family: Roboto, Helvetica, sans-serif;
+		        border: 0;
+		        padding: 20px;
+		        text-transform: uppercase;
+		        background-color: #4a6188;
+		        color: #fff;
+		        padding: 14px 20px;
+		        transition: all 500ms ease;
+		        height: 51px;
+		        width: 228px;
+		        display: block;
+		        position: relative;
+		        margin: 0 auto;
+		    }
 
-		}
-		
+		    .btnMy:hover {
+		        border-radius: 5px;
+		    }
 
+		    .btnMy:before {
+		        content: ' ';
+		        position: absolute;
+		        top: 0px;
+		        left: 0px;
+		        width: 0px;
+		        height: 51px;
+		        background: rgba(255, 255, 255, 0.3);
+		        border-radius: 5px;
+		        transition: all 500ms ease;
+		        border-radius: 10px;
+		    }
 
-		let url = window.location,
-			reg = new RegExp("num_form=[0-9]+"),
-			res_reg = reg.exec(url);
-			
-		//alert(window.location)
-		if (url != "http://www.bestdancefest.com.ua/form/") {
-			id_form = res_reg[0].substring(9);
-			//alert("here")
-			$.ajax({
-				type: "POST",
-				url: "/my_update.php",
-				data: { 'id': id_form },
-				success: function (phpData) {
-					//alert(phpData);
-					format_data(phpData);
-				},
-				complete: function () {
-				},
-				dataType: "text"
-			});
-
-
+		    .btnMy:hover:before {
+		        width: 100%;
+		    }
 			
 
-		}
 
+		    #loader {
+		        align-items: center;
+		        justify-content: center;
+		        border: 16px solid #f3f3f3;
+		        border-radius: 50%;
+		        border-top: 16px solid blue;
+		        border-bottom: 16px solid blue;
+		        width: 60px;
+		        height: 60px;
+		        -webkit-animation: spin 2s linear infinite;
+		        animation: spin 2s linear infinite;
+		        visibility: hidden;
+		    }
 
+		    @-webkit-keyframes spin {
+		        0% {
+		            -webkit-transform: rotate(0deg);
+		        }
 
+		        100% {
+		            -webkit-transform: rotate(360deg);
+		        }
+		    }
 
-	</script>
+		    @keyframes spin {
+		        0% {
+		            transform: rotate(0deg);
+		        }
 
-	<script>
-		$(document).ready(function () {
-			checkFieldState();
-			$("#category").change(checkFieldState);
-		});
+		        100% {
+		            transform: rotate(360deg);
+		        }
+		    }
 
-		function checkFieldState() {
-			var selectedValue = document.getElementById("category").value;
-			var result = document.getElementById("skill_level").value;
-			if (selectedValue == "Solo" || selectedValue == "Duo/Trio") {
-
-				document.getElementById("skill_level").innerHTML = '<option selected disabled>Выберите уровень</option>';
-				document.getElementById("skill_level").innerHTML += '<option value="Pro (Опытные)">Pro (Опытные)</option>"';
-			}
-			else {
-				document.getElementById("skill_level").innerHTML = '<option selected disabled>Выберите уровень</option>';
-				document.getElementById("skill_level").innerHTML += '<option value="Beginners (Начинающие)">Beginners (Начинающие)</option>';
-				document.getElementById("skill_level").innerHTML += '<option value="Pro (Опытные)">Pro (Опытные)</option>"';
-			}
-			document.getElementById("skill_level").value = result;
-		}
-
-	</script>
-</div>
-
-<style>
-
-	.submitButton,.deleteButton {
-		background-color: #30c323;
-		color: #fff;
-		font-weight: 600;
-		font-family: Roboto, Helvetica, sans-serif;
-		border: 0;
-		padding: 20px;
-	}
-
-	.submitButton:hover,.deleteButton:hover {
-		background-color: #5ce750;
-	}
-
-
-
-	#loader {
-		align-items: center;
-  		justify-content: center;
-		border: 16px solid #f3f3f3;
-		border-radius: 50%;
-		border-top: 16px solid blue;
-		border-bottom: 16px solid blue;
-		width: 60px;
-		height: 60px;
-		-webkit-animation: spin 2s linear infinite;
-		animation: spin 2s linear infinite;
-		visibility:hidden;
-	}
-
-	@-webkit-keyframes spin {
-	  0% { -webkit-transform: rotate(0deg); }
-	  100% { -webkit-transform: rotate(360deg); }
-	}
-
-	@keyframes spin {
-	  0% { transform: rotate(0deg); }
-	  100% { transform: rotate(360deg); }
-	}
-
-
-</style>
+		</style>

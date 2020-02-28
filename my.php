@@ -120,9 +120,13 @@
 	$url_addres = 'http://' . $_SERVER['HTTP_REFERER'] . $_SERVER['REQUEST_URI'];
 
 	if (preg_match("/num_form=[0-9]+/", $url_addres, $array)) {
-
 		$res = preg_match("/num_form=[0-9]+/", $url_addres, $array);
 		$form_num = substr($array[0], 9);
+		$music_old_del = "wp-content/themes/bestdancefest.com.ua/upload_files/music/".$_POST["id_user"]."/".$form_num."/".$_POST["old_file_post"];
+		echo $music_old_del;
+		if (unlink($music_old_del))
+			echo "success";
+
 		$sql_input = "UPDATE DATA_INPUT SET user_id= $user_id,nomination=" . '"' .
 			$_POST["nomination"] . '",' .
 			"category=" . '"' . $_POST["category"] . '",' .
@@ -143,7 +147,7 @@
 			"dance_style=" . '"' . $_POST["dance_style"] . '" WHERE' . " id=$form_num;";
 
 
-		echo $sql_input;
+		// echo $sql_input;
 		if ($conn->query($sql_input) === TRUE) {
 			echo "record updated successfully";
 		}
@@ -166,7 +170,7 @@
 			'Максимальный возраст ' . $_POST["max_age"] . "<br>" .
 			'Минимальный возраст ' . $_POST["min_age"] . "<br>" .
 			'Путь к чеку с оплатой ' . '<a href="http://bestdancefest.com.ua/' . $upload_dir_photo . $photo . '"><img width="400" src="http://bestdancefest.com.ua/' . $upload_dir_photo . $photo . '"></a>' . '<br>' .
-			'Путь/имя трека ' . 'http://bestdancefest.com.ua/' . $upload_dir_music . $audio . " <br>" .
+			'Путь/имя трека ' . '<a href="http://bestdancefest.com.ua/' . $upload_dir_music . $audio . '">'.$audio.' </a><br>' .
 			'Стиль танца ' . $_POST["dance_style"] . "</p>";
 
 		$headers = "Content-type: text/html; charset=utf-8\r\n";
@@ -178,7 +182,7 @@
 			$_POST['email'] . '"' . "," . '"' . $_POST['city'] . '"' . "," . '"' . $_POST['number_name'] . '"' . "," . '"' .
 			$_POST['team_name'] . '"' . "," . '"00:' . $_POST['duration'] . '"' . "," . $_POST['amount'] . "," . $_POST['max_age'] . "," .
 			$_POST['min_age'] . "," . '"' . $photo . '"' . "," . '"' . $audio . '"' . "," . '"' . $_POST['dance_style'] . '"' . ");";
-		echo $sql_input;
+		// echo $sql_input;
 		if ($conn->query($sql_input) === TRUE) {
 			echo "New record created successfully";
 		}
@@ -186,7 +190,7 @@
 		$to_email = 'bestdancefest@gmail.com';
 		$subject = 'DanceForm';
 		$message =
-			'<p>Номинация ' . $_POST["nomination"] . "<br>" .	
+			'<p>Номинация ' . $_POST["nomination"] . "<br>" .
 			'Категория ' . $_POST["category"] . "<br>" .
 			'Уровень навыка ' . $_POST["skill_level"] . "<br>" .
 			'Возраст группы ' . $_POST["group_age"] . "<br>" .
@@ -201,7 +205,7 @@
 			'Максимальный возраст ' . $_POST["max_age"] . "<br>" .
 			'Минимальный возраст ' . $_POST["min_age"] . "<br>" .
 			'Путь к чеку с оплатой ' . '<a href="http://bestdancefest.com.ua/' . $upload_dir_photo . $photo . '"><img width="400" src="http://bestdancefest.com.ua/' . $upload_dir_photo . $photo . '"></a>' . '<br>' .
-			'Путь/имя трека ' . 'http://bestdancefest.com.ua/' . $upload_dir_music . $audio . " <br>" .
+			'Путь/имя трека ' . '<a href="http://bestdancefest.com.ua/' . $upload_dir_music . $audio . '">'.$audio.' </a><br>' .
 			'Стиль танца ' . $_POST["dance_style"] . "</p>";
 	}
 

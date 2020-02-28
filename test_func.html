@@ -86,11 +86,11 @@
 				<p><strong>Аудио файл: ( mp3 или wav, до 24Мб ) </strong><br>
 					<input id="file_name" required type="file" name="file_name" placeholder="Загрузите аудио файл" accept="audio/*" 
 						style="margin-left: 50%;margin-top: 0.5vw;display: flex;transform: translate(-50%);"></p>
-				<span style="font-weight: : bold; "  id="old_file"></span>
-				
+				<span style="font-weight : bold; "  id="old_file"></span>
+				<input type="hidden" id="old_file_post" name="old_file_post" value="">
 				<audio style="display: none;" controls  id="audio_old" type="audio/*" src="">
 				
-					<p>Your browser doesn't support HTML5 audio. Here is a  instead.</p>
+					<p>Your browser doesn't support HTML5 audio. Here is a text instead.</p>
 				</audio>
 				
 				<h2 class="coloredHeader">Контактная информация</h2>
@@ -349,7 +349,7 @@
 									id_form = res_reg[0].substring(9);
 
 							input_id[i].innerHTML +="Старая композиция: " + splitted_data[i] +"<br>" ;
-							
+							document.getElementById("old_file_post").value = splitted_data[i];
 							$("#audio_old")[0].src = '/wp-content/themes/bestdancefest.com.ua/upload_files/music/'+user_id+'/'+id_form+'/'+splitted_data[i];
 							//alert($("#audio_old")[0].src);
 						//	alert($("#audio_old")[0].src);

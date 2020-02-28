@@ -100,18 +100,18 @@ function generate_links(){
 	
 
 	echo "<br><p><a class='user-order-link btnMy' style='color:#000;' href='http://www.bestdancefest.com.ua/form_timing'>Сформировать тайминг</a><br></p>";
-	if (custom_shortcode() == "1")
-		echo '<a href ="http://www.bestdancefest.com.ua/delete/" class="btnMy">Удалить заявку</a>';
-	// if (false){
+	// if (custom_shortcode() == "1")
+	// 	echo '<a href ="http://www.bestdancefest.com.ua/delete/" class="btnMy">Удалить заявку</a>';
+	if (custom_shortcode() == "1"){
 
-	// 	echo '<h1 style="margin: 10px 0 10px 10px;font-size: 26pt;color: #fafafa;text-align: center;">Все заявки</h1>';
-	// 	while($row1 = $result1->fetch_assoc()) {
+		echo '<h1 style="margin: 10px 0 10px 10px;font-size: 26pt;color: #fafafa;text-align: center;">Все заявки</h1>';
+		while($row1 = $result1->fetch_assoc()) {
 
-	// 	//echo "num form:".$row["id"]."<br>";
-	// 		echo "<a class='user-order-link btnMy' style='color:#000;filter: drop-shadow(2px 2px 2px #222);-webkit-filter: drop-shadow(2px 2px 2px #222);' href='http://www.bestdancefest.com.ua/form?num_form=".$row1["id"]."'/>".$row1["id"].'_'.$row1["number_name"].'</a>';
-	// 		echo "<br>";
-	// 	}	
-	// }
+		//echo "num form:".$row["id"]."<br>";
+			echo "<a class='user-order-link btnMy' style='color:#000;filter: drop-shadow(2px 2px 2px #222);-webkit-filter: drop-shadow(2px 2px 2px #222);' href='http://www.bestdancefest.com.ua/form?num_form=".$row1["id"]."'/>".$row1["id"].'_'.$row1["number_name"].'</a>';
+			echo "<br>";
+		}	
+	}
 
 	echo '<h1 style="margin: 10px 0 10px 10px;font-size: 26pt;color: #fafafa;text-align: center;">Ваши заявки</h1>';
 	while($row = $result->fetch_assoc()) {
